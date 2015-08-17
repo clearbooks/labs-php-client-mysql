@@ -9,13 +9,13 @@
     }
   ],
   "autoload": {
-    "psr-4": {"Clearbooks\\LabsPHPClientMysql\\": "src/"}
+    "psr-4": {"Clearbooks\\Labs\\Mysql\\": "src/"}
   },
   "autoload-dev": {
-    "psr-4": {"Clearbooks\\LabsPHPClientMysql\\": "test/"}
+    "psr-4": {"Clearbooks\\Labs\\Mysql\\": "test/"}
   },
   "require":{
-    "doctrine/dbal": "2.5.1",
+    "doctrine/dbal": "2.5.1"
   },
   "require-dev": {
     "phpunit/phpunit": "4.7.*"
