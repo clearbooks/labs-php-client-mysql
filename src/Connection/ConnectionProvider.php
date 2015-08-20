@@ -6,7 +6,7 @@
  * Time: 14:46
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 interface ConnectionProvider

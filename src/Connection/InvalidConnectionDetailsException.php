@@ -6,7 +6,7 @@
  * Time: 15:18
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class InvalidConnectionDetailsException extends \Exception{}

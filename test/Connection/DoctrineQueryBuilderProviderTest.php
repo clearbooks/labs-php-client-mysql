@@ -6,7 +6,7 @@
  * Time: 11:52
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class DoctrineQueryBuilderProviderTest extends \PHPUnit_Framework_TestCase
@@ -20,7 +20,7 @@ class DoctrineQueryBuilderProviderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->queryBuilderProvider = new DoctrineQueryBuilderProvider( (new DoctrineMysqlConnectionProvider( new CorrectConnectionDetails() ))->getConnection() );
+        $this->queryBuilderProvider = new DoctrineQueryBuilderProvider( (new DoctrineConnectionProvider( new CorrectConnectionDetails() ))->getConnection() );
     }
 
     /**

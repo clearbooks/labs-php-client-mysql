@@ -6,7 +6,7 @@
  * Time: 15:59
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class StubIncorrectConnectionDetails implements ConnectionDetails

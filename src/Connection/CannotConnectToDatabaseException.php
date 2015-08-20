@@ -6,7 +6,7 @@
  * Time: 16:30
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class CannotConnectToDatabaseException extends \Exception{}

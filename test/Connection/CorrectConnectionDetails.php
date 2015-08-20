@@ -6,7 +6,7 @@
  * Time: 09:44
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class CorrectConnectionDetails implements ConnectionDetails

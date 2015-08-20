@@ -6,7 +6,7 @@
  * Time: 14:48
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class DoctrineMysqlConnectionProviderTest extends \PHPUnit_Framework_TestCase
@@ -17,7 +17,7 @@ class DoctrineMysqlConnectionProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function givenNoConnectionDetails_getConnectionThrowsInvalidConnectionDetailsException()
     {
-        $connectionProvider = new DoctrineMysqlConnectionProvider( new DummyConnectionDetails() );
+        $connectionProvider = new DoctrineConnectionProvider( new DummyConnectionDetails() );
         try {
             $connectionProvider->getConnection();
         } catch ( InvalidConnectionDetailsException $e ) {
@@ -30,7 +30,7 @@ class DoctrineMysqlConnectionProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function givenConnectionDetailsButCantConnect_getConnectionThrowsCannotConnectToDatabaseException()
     {
-        $connectionProvider = new DoctrineMysqlConnectionProvider( new StubIncorrectConnectionDetails() );
+        $connectionProvider = new DoctrineConnectionProvider( new StubIncorrectConnectionDetails() );
         try {
             $connectionProvider->getConnection();
         } catch ( CannotConnectToDatabaseException $e ) {
@@ -43,7 +43,7 @@ class DoctrineMysqlConnectionProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function givenCorrectConnectionDetail_andCanConnect_getConnectionReturnsConnection()
     {
-        $connectionProvider = new DoctrineMysqlConnectionProvider( new CorrectConnectionDetails() );
+        $connectionProvider = new DoctrineConnectionProvider( new CorrectConnectionDetails() );
         $connecton = $connectionProvider->getConnection();
         $this->assertInstanceOf( '\Doctrine\DBAL\Connection', $connecton );
     }

@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 use Doctrine\DBAL\Connection;

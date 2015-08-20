@@ -6,7 +6,7 @@
  * Time: 11:52
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 interface QueryBuilderProvider

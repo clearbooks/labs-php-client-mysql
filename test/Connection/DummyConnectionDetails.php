@@ -6,7 +6,7 @@
  * Time: 16:28
  */
 
-namespace Clearbooks\LabsMysql\Connection;
+namespace Clearbooks\Labs\Mysql\Connection;
 
 
 class DummyConnectionDetails implements ConnectionDetails
