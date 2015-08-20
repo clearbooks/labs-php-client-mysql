@@ -23,7 +23,7 @@ class EntityManagerProvider
      */
     public function getEntityManager()
     {
-        $config = Setup::createAnnotationMetadataConfiguration( [ __DIR__ . "../Entity" ],
+        $config = Setup::createAnnotationMetadataConfiguration( [ __DIR__ . "/../Entity" ],
                                                                 false, null, null, false );
         return EntityManager::create( $this->connection, $config );
     }
