@@ -3,7 +3,7 @@ namespace Clearbooks\Labs\Mysql\Connection;
 
 use Doctrine\DBAL\DriverManager;
 
-class DoctrineConnectionProvider implements ConnectionProvider
+class DoctrineConnectionProvider
 {
     /**
      * @var ConnectionDetails

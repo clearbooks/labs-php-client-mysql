@@ -1,22 +1,31 @@
 <?php
 
+use Clearbooks\Labs\Mysql\Connection\EntityManagerProvider;
 use Clearbooks\Labs\Mysql\Connection\ConnectionDetails;
-use Clearbooks\Labs\Mysql\Connection\ConnectionProvider;
+use Clearbooks\Labs\Mysql\Connection\DoctrineConnectionProvider;
 use Clearbooks\Labs\Mysql\Connection\MysqlConnectionDetails;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\EntityManager;
 
 return [
-        ConnectionDetails::class  => function () {
+        ConnectionDetails::class => function ( \DI\Container $container ) {
             return new MysqlConnectionDetails(
-                    DI\string( "{db.host}" ),
-                    DI\string( "{db.port}" ),
-                    DI\string( "{db.name}" ),
-                    DI\string( "{db.user}" ),
-                    DI\string( "{db.password}" ),
-                    "UTF-8"
+                    $container->get( "db.host" ),
+                    $container->get( "db.port" ),
+                    $container->get( "db.name" ),
+                    $container->get( "db.user" ),
+                    $container->get( "db.password" ),
+                    "utf8"
             );
         },
-        ConnectionProvider::class => DI\object( 'Clearbooks\Labs\Mysql\Connection\DoctrineConnectionProvider' ),
-        Connection::class         => [ DI\get( 'Clearbooks\Labs\Mysql\Connection\ConnectionProvider' ),
-                                       'getConnection' ]
+        Connection::class        => function ( \DI\Container $container ) {
+            /** @var DoctrineConnectionProvider $connectionProvider */
+            $connectionProvider = $container->get( DoctrineConnectionProvider::class );
+            return $connectionProvider->getConnection();
+        },
+        EntityManager::class     => function ( \DI\Container $container ) {
+            /** @var EntityManagerProvider $entityManagerProvider */
+            $entityManagerProvider = $container->get( EntityManagerProvider::class );
+            return $entityManagerProvider->getEntityManager();
+        }
 ];
