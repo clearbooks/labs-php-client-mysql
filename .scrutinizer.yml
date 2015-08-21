@@ -1,7 +1,7 @@
 filter:
     excluded_paths:
         - test/*
-
+        
 build_failure_conditions:
     - 'project.metric_change("scrutinizer.test_coverage", < 0)'
     - 'project.metric("scrutinizer.quality", < 10)'
@@ -30,8 +30,8 @@ coding_style:
                 after_type_cast: false
         braces:
             classes_functions:
-                class: new-line
-                function: new-line
+                class: end-of-line
+                function: end-of-line
                 closure: end-of-line
             if:
                 opening: end-of-line
