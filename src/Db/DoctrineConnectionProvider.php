@@ -1,5 +1,5 @@
 <?php
-namespace Clearbooks\Labs\Mysql\Connection;
+namespace Clearbooks\Labs\Db;
 
 use Doctrine\DBAL\DriverManager;
 

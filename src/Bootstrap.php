@@ -1,14 +1,62 @@
 <?php
+namespace Clearbooks\Labs;
 
-require_once "../vendor/autoload.php";
+use DI\Container;
 
-$containerBuilder = new \DI\ContainerBuilder();
+require_once __DIR__ . "/../vendor/autoload.php";
 
-$containerBuilder->addDefinitions( '../config/mysql-config.php' );
-$containerBuilder->addDefinitions( '../config/mappings.php' );
+class Bootstrap
+{
+    /**
+     * @var Bootstrap
+     */
+    private static $instance = null;
 
-$container = $containerBuilder->build();
+    /**
+     * @var Container
+     */
+    private $DIContainer;
 
-/** @var \Clearbooks\Labs\Mysql\Foo $foo */
-$foo = $container->get( 'Clearbooks\Labs\Mysql\Foo' );
-$foo->doSomething();
+    /**
+     * @var bool
+     */
+    private $initialized = false;
+
+    private function __construct()
+    {
+
+    }
+
+    public static function getInstance()
+    {
+        if ( self::$instance == null ) {
+            self::$instance = new Bootstrap();
+        }
+
+        return self::$instance;
+    }
+
+    public function init()
+    {
+        if ( $this->initialized ) {
+            return;
+        }
+
+        $containerBuilder = new \DI\ContainerBuilder();
+
+        $containerBuilder->addDefinitions( __DIR__ . '/../config/db-config.php' );
+        $containerBuilder->addDefinitions( __DIR__ . '/../config/db-mappings.php' );
+
+        $this->DIContainer = $containerBuilder->build();
+
+        $this->initialized = true;
+    }
+
+    /**
+     * @return Container
+     */
+    public function getDIContainer()
+    {
+        return $this->DIContainer;
+    }
+}

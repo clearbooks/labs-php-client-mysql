@@ -1,9 +1,9 @@
 <?php
 
-use Clearbooks\Labs\Mysql\Connection\EntityManagerProvider;
-use Clearbooks\Labs\Mysql\Connection\ConnectionDetails;
-use Clearbooks\Labs\Mysql\Connection\DoctrineConnectionProvider;
-use Clearbooks\Labs\Mysql\Connection\MysqlConnectionDetails;
+use Clearbooks\Labs\Db\EntityManagerProvider;
+use Clearbooks\Labs\Db\ConnectionDetails;
+use Clearbooks\Labs\Db\DoctrineConnectionProvider;
+use Clearbooks\Labs\Db\Mysql\MysqlConnectionDetails;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 

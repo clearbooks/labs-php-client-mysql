@@ -1,5 +1,7 @@
 <?php
-namespace Clearbooks\Labs\Mysql\Connection;
+namespace Clearbooks\Labs\Db\Mysql;
+
+use Clearbooks\Labs\Db\ConnectionDetails;
 
 class MysqlConnectionDetails implements ConnectionDetails
 {

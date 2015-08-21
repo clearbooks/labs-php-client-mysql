@@ -1,5 +1,5 @@
 <?php
-namespace Clearbooks\Labs\Mysql\Entity;
+namespace Clearbooks\Labs\Db\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

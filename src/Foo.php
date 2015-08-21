@@ -1,7 +1,7 @@
 <?php
-namespace Clearbooks\Labs\Mysql;
+namespace Clearbooks\Labs;
 
-use Clearbooks\Labs\Mysql\Entity\Test;
+use Clearbooks\Labs\Db\Entity\Test;
 use Doctrine\ORM\EntityManager;
 
 class Foo
@@ -19,8 +19,8 @@ class Foo
     public function doSomething()
     {
         /** @var Test $test */
-        $test = $this->entityManager->find( 'Clearbooks\Labs\Mysql\Entity\Test', 1 );
-
+        $test = $this->entityManager->find( 'Clearbooks\Labs\Db\Entity\Test', 1 );
+        var_dump($test);
         $test->setName( "xxyy" );
 
         $this->entityManager->persist( $test );
