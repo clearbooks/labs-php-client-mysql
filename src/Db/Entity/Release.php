@@ -5,9 +5,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="test")
+ * @ORM\Table(name="release")
  */
-class Test
+class Release
 {
     /**
      * @ORM\Column(type="integer")
@@ -20,6 +20,11 @@ class Test
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $info;
 
     /**
      * @return int
@@ -51,5 +56,21 @@ class Test
     public function setName( $name )
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * @param string $info
+     */
+    public function setInfo( $info )
+    {
+        $this->info = $info;
     }
 }
