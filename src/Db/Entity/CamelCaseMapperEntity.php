@@ -11,7 +11,7 @@ abstract class CamelCaseMapperEntity
     public function __construct( array $data )
     {
         foreach ( $data as $key => $value ) {
-            $property = $this->convertToCamelCase($key);
+            $property = $this->convertToCamelCase( $key );
 
             if ( property_exists( $this, $property ) ) {
                 $this->{$property} = $value;
@@ -52,7 +52,13 @@ abstract class CamelCaseMapperEntity
      */
     private function convertToCamelCase( $word )
     {
-        return str_replace( self::WORD_DELIMITER, "", lcfirst( ucwords( $word, self::WORD_DELIMITER ) ) );
+        return lcfirst( preg_replace_callback(
+                                '/' . self::WORD_DELIMITER . '([a-z0-9])/i',
+                                function ( $matches ) {
+                                    return strtoupper( $matches[1] );
+                                },
+                                $word
+                        ) );
     }
 
     /**
