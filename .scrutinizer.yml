@@ -3,7 +3,7 @@ filter:
         - test/*
         
 build_failure_conditions:
-    - 'project.metric_change("scrutinizer.test_coverage", < 0)'
+    - 'project.metric_change("scrutinizer.test_coverage", < 10)'
     - 'project.metric("scrutinizer.quality", < 10)'
 
 checks:
