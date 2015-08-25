@@ -27,12 +27,16 @@ abstract class CamelCaseMapperEntity
         $data = [ ];
         $transientProperties = $this->getTransientProperties();
 
-        foreach ( $this as $key => $value ) {
-            if ( in_array( $key, $transientProperties ) ) {
+        $reflectionClass = new \ReflectionClass( $this );
+        $properties = $reflectionClass->getProperties( \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED );
+
+        foreach ( $properties as $property ) {
+            $propertyName = $property->getName();
+            if ( in_array( $propertyName, $transientProperties ) ) {
                 continue;
             }
 
-            $data[$this->convertToDbKey( $key )] = $value;
+            $data[$this->convertToDbKey( $propertyName )] = $this->{$propertyName};
         }
 
         return $data;
