@@ -24,6 +24,7 @@ class Toggle extends CamelCaseMapperEntity
     protected $visible;
 
     /**
+     * @Nullable
      * @var int
      */
     protected $releaseId;

@@ -1,6 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
+use Notoj\ReflectionClass;
+use Notoj\ReflectionProperty;
+
 abstract class CamelCaseMapperEntity
 {
     const WORD_DELIMITER = "_";
@@ -8,7 +11,7 @@ abstract class CamelCaseMapperEntity
     /**
      * @param array $data
      */
-    public function __construct( array $data )
+    public function __construct( array $data = [ ] )
     {
         foreach ( $data as $key => $value ) {
             $property = $this->convertToCamelCase( $key );
@@ -25,29 +28,25 @@ abstract class CamelCaseMapperEntity
     public function toArray()
     {
         $data = [ ];
-        $transientProperties = $this->getTransientProperties();
+        $reflectionClass = new ReflectionClass( $this );
 
-        $reflectionClass = new \ReflectionClass( $this );
+        /** @var ReflectionProperty[] $properties */
         $properties = $reflectionClass->getProperties( \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED );
 
         foreach ( $properties as $property ) {
             $propertyName = $property->getName();
-            if ( in_array( $propertyName, $transientProperties ) ) {
+            $isNullable = $property->getAnnotations()->getOne( "Nullable" ) !== false;
+            $isTransient = $property->getAnnotations()->getOne( "Transient" ) !== false;
+            $propertyValue = $this->{$propertyName};
+
+            if ( ( !$isNullable && $propertyValue === null ) || $isTransient ) {
                 continue;
             }
 
-            $data[$this->convertToDbKey( $propertyName )] = $this->{$propertyName};
+            $data[$this->convertToDbKey( $propertyName )] = $propertyValue;
         }
 
         return $data;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getTransientProperties()
-    {
-        return [ ];
     }
 
     /**

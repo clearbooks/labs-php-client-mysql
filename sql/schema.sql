@@ -9,9 +9,9 @@ CREATE TABLE IF NOT EXISTS `group_policy` (
 CREATE TABLE IF NOT EXISTS `toggle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `type` enum('user','group') NOT NULL DEFAULT 'user',
+  `type` enum('simple','group') NOT NULL DEFAULT 'simple',
   `visible` tinyint(1) NOT NULL DEFAULT '0',
-  `release_id` int(11) NOT NULL,
+  `release_id` int(11) NULL,
   PRIMARY KEY (`id`),
   KEY `type` (`type`),
   KEY `visible` (`visible`),

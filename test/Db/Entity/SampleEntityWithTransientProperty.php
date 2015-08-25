@@ -4,6 +4,7 @@ namespace Clearbooks\Labs\Db\Entity;
 class SampleEntityWithTransientProperty extends SampleEntityWithoutTransientProperty
 {
     /**
+     * @Transient
      * @var string
      */
     protected $invalid_property;
@@ -22,13 +23,5 @@ class SampleEntityWithTransientProperty extends SampleEntityWithoutTransientProp
     public function setInvalidProperty( $invalid_property )
     {
         $this->invalid_property = $invalid_property;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTransientProperties()
-    {
-        return [ "invalid_property" ];
     }
 }

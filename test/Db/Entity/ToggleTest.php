@@ -8,7 +8,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function WhenSettingToggleVisibilityToVisible_ValueInTheArrayProvidedByToArrayWillBeOne()
     {
-        $toggle = new Toggle( [ ] );
+        $toggle = new Toggle();
         $toggle->setVisible( true );
 
         $data = $toggle->toArray();
@@ -20,7 +20,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function WhenSettingToggleVisibilityToInvisible_ValueInTheArrayProvidedByToArrayWillBeZero()
     {
-        $toggle = new Toggle( [ ] );
+        $toggle = new Toggle();
         $toggle->setVisible( false );
 
         $data = $toggle->toArray();

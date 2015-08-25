@@ -1,23 +1,10 @@
 <?php
 namespace Clearbooks\Labs\Db\Table;
 
-use Clearbooks\Labs\Bootstrap;
-use Doctrine\DBAL\Connection;
+use Clearbooks\Labs\LabsTest;
 
-abstract class TableTest extends \PHPUnit_Framework_TestCase
+abstract class TableTest extends LabsTest
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
-
-    public function setUp()
-    {
-        parent::setUp();
-        $this->connection = Bootstrap::getInstance()->getDIContainer()
-                                     ->get( 'Doctrine\DBAL\Connection' );
-    }
-
     /**
      * Asserts that a table exists
      *
