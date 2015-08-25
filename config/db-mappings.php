@@ -22,10 +22,5 @@ return [
             /** @var DoctrineConnectionProvider $connectionProvider */
             $connectionProvider = $container->get( DoctrineConnectionProvider::class );
             return $connectionProvider->getConnection();
-        },
-        EntityManager::class     => function ( \DI\Container $container ) {
-            /** @var EntityManagerProvider $entityManagerProvider */
-            $entityManagerProvider = $container->get( EntityManagerProvider::class );
-            return $entityManagerProvider->getEntityManager();
         }
 ];

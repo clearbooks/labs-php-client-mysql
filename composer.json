@@ -16,7 +16,6 @@
   },
   "require":{
     "doctrine/dbal": "2.5.1",
-    "doctrine/orm": "2.5.0",
     "php-di/php-di": "^5.0"
   },
   "require-dev": {
