@@ -5,7 +5,6 @@ use Clearbooks\Labs\Db\ConnectionDetails;
 use Clearbooks\Labs\Db\DoctrineConnectionProvider;
 use Clearbooks\Labs\Db\Mysql\MysqlConnectionDetails;
 use Doctrine\DBAL\Connection;
-use Doctrine\ORM\EntityManager;
 
 return [
         ConnectionDetails::class => function ( \DI\Container $container ) {
