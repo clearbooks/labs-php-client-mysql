@@ -22,11 +22,17 @@ class Bootstrap
      */
     private $initialized = false;
 
+    /**
+     * Empty private constructor, necessary for enforcing singleton pattern
+     */
     private function __construct()
     {
 
     }
 
+    /**
+     * @return Bootstrap
+     */
     public static function getInstance()
     {
         if ( self::$instance == null ) {
@@ -36,6 +42,9 @@ class Bootstrap
         return self::$instance;
     }
 
+    /**
+     * Initialization (e.g.: DI container)
+     */
     public function init()
     {
         if ( $this->initialized ) {
