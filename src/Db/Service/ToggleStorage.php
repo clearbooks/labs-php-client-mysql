@@ -104,11 +104,37 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
         $identityField = $this->getIdentityFieldByTypeOfIdentity( $typeOfIdentity );
 
         if ( $policy === null ) {
-            $this->connection->delete( $table,
-                                       [ $identityField => $identityId, "toggle_id" => $toggleId ] );
+            $this->removeTogglePolicy( $table, $identityField, $identityId, $toggleId );
             return;
         }
 
+        $this->createOrModifyTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity, $table, $identityField );
+    }
+
+    /**
+     * @param string $table
+     * @param string $identityField
+     * @param string $identityId
+     * @param int $toggleId
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     */
+    private function removeTogglePolicy( $table, $identityField, $identityId, $toggleId )
+    {
+        $this->connection->delete( $table,
+                                   [ $identityField => $identityId, "toggle_id" => $toggleId ] );
+    }
+
+    /**
+     * @param int $toggleId
+     * @param string $identityId
+     * @param string $policy
+     * @param string $typeOfIdentity
+     * @param string $table
+     * @param string $identityField
+     */
+    private function createOrModifyTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity, $table,
+                                                 $identityField )
+    {
         $currentPolicy = $this->getPolicyOfToggle( $toggleId, $identityId, $typeOfIdentity );
 
         if ( $currentPolicy === null ) {
