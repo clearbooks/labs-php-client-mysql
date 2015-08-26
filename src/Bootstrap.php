@@ -21,15 +21,6 @@ final class Bootstrap
     private $initialized = false;
 
     /**
-     * Empty private constructor, necessary for enforcing singleton pattern
-     * @codeCoverageIgnore
-     */
-    private function __construct()
-    {
-
-    }
-
-    /**
      * @codeCoverageIgnore
      * @return Bootstrap
      */
@@ -44,7 +35,6 @@ final class Bootstrap
 
     /**
      * Initialization (e.g.: DI container)
-     * @codeCoverageIgnore
      */
     public function init()
     {
