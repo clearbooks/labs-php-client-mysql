@@ -34,19 +34,47 @@ abstract class CamelCaseMapperEntity
         $properties = $reflectionClass->getProperties( \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED );
 
         foreach ( $properties as $property ) {
-            $propertyName = $property->getName();
-            $isNullable = $property->getAnnotations()->getOne( "Nullable" ) !== false;
-            $isTransient = $property->getAnnotations()->getOne( "Transient" ) !== false;
-            $propertyValue = $this->{$propertyName};
-
-            if ( ( !$isNullable && $propertyValue === null ) || $isTransient ) {
+            if ( !$this->isPropertyRequiredInOutputArray( $property ) ) {
                 continue;
             }
 
+            $propertyName = $property->getName();
+            $propertyValue = $this->{$propertyName};
             $data[$this->convertToDbKey( $propertyName )] = $propertyValue;
         }
 
         return $data;
+    }
+
+    /**
+     * @param ReflectionProperty $property
+     * @return bool
+     */
+    private function isPropertyRequiredInOutputArray( ReflectionProperty $property )
+    {
+        $isNullable = $this->isPropertyNullable( $property );
+        $isTransient = $this->isPropertyTransient( $property );
+        $propertyValue = $this->{$propertyName};
+
+        return ( $isNullable || $propertyValue !== null ) && !$isTransient;
+    }
+
+    /**
+     * @param ReflectionProperty $property
+     * @return bool
+     */
+    private function isPropertyNullable( ReflectionProperty $property )
+    {
+        return $property->getAnnotations()->getOne( "Nullable" ) !== false;
+    }
+
+    /**
+     * @param ReflectionProperty $property
+     * @return bool
+     */
+    private function isPropertyTransient( ReflectionProperty $property )
+    {
+        return $property->getAnnotations()->getOne( "Transient" ) !== false;
     }
 
     /**
