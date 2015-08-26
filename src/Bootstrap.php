@@ -22,6 +22,7 @@ final class Bootstrap
 
     /**
      * Empty private constructor, necessary for enforcing singleton pattern
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -29,6 +30,7 @@ final class Bootstrap
     }
 
     /**
+     * @codeCoverageIgnore
      * @return Bootstrap
      */
     public static function getInstance()
@@ -42,6 +44,7 @@ final class Bootstrap
 
     /**
      * Initialization (e.g.: DI container)
+     * @codeCoverageIgnore
      */
     public function init()
     {
