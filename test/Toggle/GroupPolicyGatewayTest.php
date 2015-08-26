@@ -23,10 +23,10 @@ class GroupPolicyGatewayTest extends LabsTest
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( 'Clearbooks\Labs\Db\Service\ToggleStorage' );
+                                        ->get( ToggleStorage::class );
 
         $this->groupPolicyGateway = Bootstrap::getInstance()->getDIContainer()
-                                            ->get( 'Clearbooks\Labs\Toggle\GroupPolicyGateway' );
+                                             ->get( GroupPolicyGateway::class );
     }
 
     /**

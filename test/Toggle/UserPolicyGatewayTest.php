@@ -23,10 +23,10 @@ class UserPolicyGatewayTest extends LabsTest
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( 'Clearbooks\Labs\Db\Service\ToggleStorage' );
+                                        ->get( ToggleStorage::class );
 
         $this->userPolicyGateway = Bootstrap::getInstance()->getDIContainer()
-                                            ->get( 'Clearbooks\Labs\Toggle\UserPolicyGateway' );
+                                            ->get( UserPolicyGateway::class );
     }
 
     /**

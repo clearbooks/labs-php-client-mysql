@@ -14,7 +14,7 @@ abstract class LabsTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->connection = Bootstrap::getInstance()->getDIContainer()
-                                     ->get( 'Doctrine\DBAL\Connection' );
+                                     ->get( Connection::class );
 
         $this->connection->beginTransaction();
         $this->connection->setRollbackOnly();

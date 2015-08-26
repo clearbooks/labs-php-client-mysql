@@ -22,10 +22,10 @@ class ToggleGateWayTest extends LabsTest
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( 'Clearbooks\Labs\Db\Service\ToggleStorage' );
+                                        ->get( ToggleStorage::class );
 
         $this->toggleGateway = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( 'Clearbooks\Labs\Toggle\ToggleGateway' );
+                                        ->get( ToggleGateway::class );
     }
 
     /**

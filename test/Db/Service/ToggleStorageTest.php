@@ -17,7 +17,7 @@ class ToggleStorageTest extends LabsTest
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( 'Clearbooks\Labs\Db\Service\ToggleStorage' );
+                                        ->get( ToggleStorage::class );
     }
 
     /**
