@@ -53,12 +53,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
      */
     public function getToggleById( $toggleId )
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select( "*" )->from( (string)$this->toggleTable )->where( "id = ?" );
-        $queryBuilder->setParameter( 0, $toggleId );
-
-        $toggleData = $queryBuilder->execute()->fetch();
-        return !empty( $toggleData ) ? new Toggle( $toggleData ) : null;
+        return $this->getToggleByColumnValue( "id", $toggleId );
     }
 
     /**
@@ -67,9 +62,19 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
      */
     public function getToggleByName( $toggleName )
     {
+        return $this->getToggleByColumnValue( "name", $toggleName );
+    }
+
+    /**
+     * @param string $columnName
+     * @param mixed  $columnValue
+     * @return Toggle|null
+     */
+    private function getToggleByColumnValue( $columnName, $columnValue )
+    {
         $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select( "*" )->from( (string)$this->toggleTable )->where( "name = ?" );
-        $queryBuilder->setParameter( 0, $toggleName );
+        $queryBuilder->select( "*" )->from( (string)$this->toggleTable )->where( $columnName . " = ?" );
+        $queryBuilder->setParameter( 0, $columnValue );
 
         $toggleData = $queryBuilder->execute()->fetch();
         return !empty( $toggleData ) ? new Toggle( $toggleData ) : null;
@@ -190,13 +195,18 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
      */
     public function getPolicyOfToggle( $toggleName, $identityId, $typeOfIdentity )
     {
-        $table = $this->getPolicyTableByTypeOfIdentity( $typeOfIdentity );
-        $identityField = $this->getIdentityFieldByTypeOfIdentity( $typeOfIdentity );
-
         $toggle = $this->getToggleByName( $toggleName );
         if ( $toggle == null ) {
             return null;
         }
+
+        return $this->getPolicyOfExistingToggle( $toggle, $identityId, $typeOfIdentity );
+    }
+
+    private function getPolicyOfExistingToggle( Toggle $toggle, $identityId, $typeOfIdentity )
+    {
+        $table = $this->getPolicyTableByTypeOfIdentity( $typeOfIdentity );
+        $identityField = $this->getIdentityFieldByTypeOfIdentity( $typeOfIdentity );
 
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select( "active" )->from( $table )
