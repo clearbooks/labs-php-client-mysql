@@ -2,18 +2,10 @@
 namespace Clearbooks\Labs\Toggle;
 
 use Clearbooks\Labs\Bootstrap;
-use Clearbooks\Labs\Db\Entity\Toggle;
-use Clearbooks\Labs\Db\Service\ToggleStorage;
-use Clearbooks\Labs\LabsTest;
 use Clearbooks\Labs\Toggle\Entity\GroupStub;
 
-class GroupPolicyGatewayTest extends LabsTest
+class GroupPolicyGatewayTest extends TogglePolicyGatewayTest
 {
-    /**
-     * @var ToggleStorage
-     */
-    private $toggleStorage;
-
     /**
      * @var GroupPolicyGateway
      */
@@ -22,22 +14,8 @@ class GroupPolicyGatewayTest extends LabsTest
     public function setUp()
     {
         parent::setUp();
-        $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( ToggleStorage::class );
-
         $this->groupPolicyGateway = Bootstrap::getInstance()->getDIContainer()
                                              ->get( GroupPolicyGateway::class );
-    }
-
-    /**
-     * @return int
-     */
-    private function createTestToggle()
-    {
-        $toggle = new Toggle();
-        $toggle->setName( "test toggle " . rand( 1, 9999 ) );
-
-        return $this->toggleStorage->insertToggle( $toggle );
     }
 
     /**
@@ -45,8 +23,8 @@ class GroupPolicyGatewayTest extends LabsTest
      */
     public function GivenGroupHasNoPolicyForToggle_WhenRequestingTogglePolicy_ResponseConfirmsNotSet()
     {
-        $toggleId = $this->createTestToggle();
-        $togglePolicyResponse = $this->groupPolicyGateway->getTogglePolicy( $toggleId, new GroupStub( 1 ) );
+        $toggle = $this->createTestToggle();
+        $togglePolicyResponse = $this->groupPolicyGateway->getTogglePolicy( $toggle->getName(), new GroupStub( 1 ) );
 
         $this->assertTrue( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
@@ -58,11 +36,11 @@ class GroupPolicyGatewayTest extends LabsTest
      */
     public function GivenGroupHasEnabledTheToggle_WhenRequestingTogglePolicy_ResponseConfirmsEnabled()
     {
-        $toggleId = $this->createTestToggle();
+        $toggle = $this->createTestToggle();
         $group = new GroupStub( 1 );
-        $this->toggleStorage->setGroupPolicy( $toggleId, $group->getId(), true );
+        $this->toggleStorage->setGroupPolicy( $toggle->getId(), $group->getId(), true );
 
-        $togglePolicyResponse = $this->groupPolicyGateway->getTogglePolicy( $toggleId, $group );
+        $togglePolicyResponse = $this->groupPolicyGateway->getTogglePolicy( $toggle->getName(), $group );
 
         $this->assertTrue( $togglePolicyResponse->isEnabled() );
         $this->assertFalse( $togglePolicyResponse->isNotSet() );
@@ -74,11 +52,11 @@ class GroupPolicyGatewayTest extends LabsTest
      */
     public function GivenGroupHasDisabledTheToggle_WhenRequestingTogglePolicy_ResponseConfirmsDisabled()
     {
-        $toggleId = $this->createTestToggle();
+        $toggle = $this->createTestToggle();
         $group = new GroupStub( 1 );
-        $this->toggleStorage->setGroupPolicy( $toggleId, $group->getId(), false );
+        $this->toggleStorage->setGroupPolicy( $toggle->getId(), $group->getId(), false );
 
-        $togglePolicyResponse = $this->groupPolicyGateway->getTogglePolicy( $toggleId, $group );
+        $togglePolicyResponse = $this->groupPolicyGateway->getTogglePolicy( $toggle->getName(), $group );
 
         $this->assertTrue( $togglePolicyResponse->isDisabled() );
         $this->assertFalse( $togglePolicyResponse->isNotSet() );

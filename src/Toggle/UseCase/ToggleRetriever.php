@@ -10,4 +10,10 @@ interface ToggleRetriever
      * @return Toggle|null
      */
     public function getToggleById( $toggleId );
+
+    /**
+     * @param string $toggleName
+     * @return Toggle|null
+     */
+    public function getToggleByName( $toggleName );
 }

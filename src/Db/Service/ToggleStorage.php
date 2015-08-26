@@ -62,6 +62,20 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
+     * @param string $toggleName
+     * @return Toggle|null
+     */
+    public function getToggleByName( $toggleName )
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder->select( "*" )->from( (string)$this->toggleTable )->where( "name = ?" );
+        $queryBuilder->setParameter( 0, $toggleName );
+
+        $toggleData = $queryBuilder->execute()->fetch();
+        return !empty( $toggleData ) ? new Toggle( $toggleData ) : null;
+    }
+
+    /**
      * @param Toggle $toggle
      * @return int
      */
@@ -149,41 +163,46 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
-     * @param int    $toggleId
+     * @param strin  $toggleName
      * @param string $userId
      * @return bool|null
      */
-    public function getUserPolicyOfToggle( $toggleId, $userId )
+    public function getUserPolicyOfToggle( $toggleName, $userId )
     {
-        return $this->getPolicyOfToggle( $toggleId, $userId, "user" );
+        return $this->getPolicyOfToggle( $toggleName, $userId, "user" );
     }
 
     /**
-     * @param int    $toggleId
+     * @param string $toggleName
      * @param string $groupId
      * @return bool|null
      */
-    public function getGroupPolicyOfToggle( $toggleId, $groupId )
+    public function getGroupPolicyOfToggle( $toggleName, $groupId )
     {
-        return $this->getPolicyOfToggle( $toggleId, $groupId, "group" );
+        return $this->getPolicyOfToggle( $toggleName, $groupId, "group" );
     }
 
     /**
-     * @param int    $toggleId
+     * @param string $toggleName
      * @param string $identityId
      * @param string $typeOfIdentity
      * @return bool|null
      */
-    public function getPolicyOfToggle( $toggleId, $identityId, $typeOfIdentity )
+    public function getPolicyOfToggle( $toggleName, $identityId, $typeOfIdentity )
     {
         $table = $this->getPolicyTableByTypeOfIdentity( $typeOfIdentity );
         $identityField = $this->getIdentityFieldByTypeOfIdentity( $typeOfIdentity );
+
+        $toggle = $this->getToggleByName( $toggleName );
+        if ( $toggle == null ) {
+            return null;
+        }
 
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select( "active" )->from( $table )
                      ->where( "{$identityField} = ? AND toggle_id = ?" );
         $queryBuilder->setParameter( 0, $identityId );
-        $queryBuilder->setParameter( 1, $toggleId );
+        $queryBuilder->setParameter( 1, $toggle->getId() );
 
         $active = $queryBuilder->execute()->fetchColumn();
         if ( $active === false ) {

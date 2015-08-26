@@ -21,13 +21,13 @@ class UserPolicyGateway implements TogglePolicyGateway
     }
 
     /**
-     * @param string   $toggleId
+     * @param string   $toggleName
      * @param Identity $idHolder
      * @return TogglePolicyResponse
      */
-    public function getTogglePolicy( $toggleId, Identity $idHolder )
+    public function getTogglePolicy( $toggleName, Identity $idHolder )
     {
-        $togglePolicyActive = $this->userPolicyRetriever->getUserPolicyOfToggle( $toggleId, $idHolder->getId() );
+        $togglePolicyActive = $this->userPolicyRetriever->getUserPolicyOfToggle( $toggleName, $idHolder->getId() );
         return new TogglePolicyResponse( $togglePolicyActive );
     }
 }

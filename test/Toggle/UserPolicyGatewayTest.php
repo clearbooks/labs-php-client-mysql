@@ -2,18 +2,10 @@
 namespace Clearbooks\Labs\Toggle;
 
 use Clearbooks\Labs\Bootstrap;
-use Clearbooks\Labs\Db\Entity\Toggle;
-use Clearbooks\Labs\Db\Service\ToggleStorage;
-use Clearbooks\Labs\LabsTest;
 use Clearbooks\Labs\Toggle\Entity\UserStub;
 
-class UserPolicyGatewayTest extends LabsTest
+class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 {
-    /**
-     * @var ToggleStorage
-     */
-    private $toggleStorage;
-
     /**
      * @var UserPolicyGateway
      */
@@ -22,22 +14,8 @@ class UserPolicyGatewayTest extends LabsTest
     public function setUp()
     {
         parent::setUp();
-        $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( ToggleStorage::class );
-
         $this->userPolicyGateway = Bootstrap::getInstance()->getDIContainer()
                                             ->get( UserPolicyGateway::class );
-    }
-
-    /**
-     * @return int
-     */
-    private function createTestToggle()
-    {
-        $toggle = new Toggle();
-        $toggle->setName( "test toggle " . rand( 1, 9999 ) );
-
-        return $this->toggleStorage->insertToggle( $toggle );
     }
 
     /**
@@ -45,8 +23,8 @@ class UserPolicyGatewayTest extends LabsTest
      */
     public function GivenUserHasNoPolicyForToggle_WhenRequestingTogglePolicy_ResponseConfirmsNotSet()
     {
-        $toggleId = $this->createTestToggle();
-        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggleId, new UserStub( 1 ) );
+        $toggle = $this->createTestToggle();
+        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggle->getName(), new UserStub( 1 ) );
 
         $this->assertTrue( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
@@ -58,11 +36,11 @@ class UserPolicyGatewayTest extends LabsTest
      */
     public function GivenUserHasEnabledTheToggle_WhenRequestingTogglePolicy_ResponseConfirmsEnabled()
     {
-        $toggleId = $this->createTestToggle();
+        $toggle = $this->createTestToggle();
         $user = new UserStub( 1 );
-        $this->toggleStorage->setUserPolicy( $toggleId, $user->getId(), true );
+        $this->toggleStorage->setUserPolicy( $toggle->getId(), $user->getId(), true );
 
-        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggleId, $user );
+        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggle->getName(), $user );
 
         $this->assertTrue( $togglePolicyResponse->isEnabled() );
         $this->assertFalse( $togglePolicyResponse->isNotSet() );
@@ -74,11 +52,11 @@ class UserPolicyGatewayTest extends LabsTest
      */
     public function GivenUserHasDisabledTheToggle_WhenRequestingTogglePolicy_ResponseConfirmsDisabled()
     {
-        $toggleId = $this->createTestToggle();
+        $toggle = $this->createTestToggle();
         $user = new UserStub( 1 );
-        $this->toggleStorage->setUserPolicy( $toggleId, $user->getId(), false );
+        $this->toggleStorage->setUserPolicy( $toggle->getId(), $user->getId(), false );
 
-        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggleId, $user );
+        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggle->getName(), $user );
 
         $this->assertTrue( $togglePolicyResponse->isDisabled() );
         $this->assertFalse( $togglePolicyResponse->isNotSet() );
@@ -90,12 +68,12 @@ class UserPolicyGatewayTest extends LabsTest
      */
     public function GivenUserHasEnabledTheToggle_WhenChangingTogglePolicyToNotSet_ResponseConfirmsNotSet()
     {
-        $toggleId = $this->createTestToggle();
+        $toggle = $this->createTestToggle();
         $user = new UserStub( 1 );
-        $this->toggleStorage->setUserPolicy( $toggleId, $user->getId(), true );
+        $this->toggleStorage->setUserPolicy( $toggle->getId(), $user->getId(), true );
 
-        $this->toggleStorage->setUserPolicy( $toggleId, $user->getId(), null );
-        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggleId, new UserStub( 1 ) );
+        $this->toggleStorage->setUserPolicy( $toggle->getId(), $user->getId(), null );
+        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggle->getName(), new UserStub( 1 ) );
 
         $this->assertTrue( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );

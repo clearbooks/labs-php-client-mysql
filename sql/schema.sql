@@ -8,11 +8,12 @@ CREATE TABLE IF NOT EXISTS `group_policy` (
 
 CREATE TABLE IF NOT EXISTS `toggle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(128) NOT NULL,
   `type` enum('simple','group') NOT NULL DEFAULT 'simple',
   `visible` tinyint(1) NOT NULL DEFAULT '0',
   `release_id` int(11) NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
   KEY `type` (`type`),
   KEY `visible` (`visible`),
   KEY `release_id` (`release_id`)

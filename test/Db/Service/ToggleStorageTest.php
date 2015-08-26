@@ -23,7 +23,7 @@ class ToggleStorageTest extends LabsTest
     /**
      * @test
      */
-    public function GivenAToggle_WhenRetrievingToggle_ToggleDataReturns()
+    public function GivenAToggle_WhenRetrievingToggleById_ToggleDataReturns()
     {
         $toggle = new Toggle();
         $toggle->setName( "test toggle" );
@@ -34,6 +34,28 @@ class ToggleStorageTest extends LabsTest
 
         $retrievedToggle = $this->toggleStorage->getToggleById( $toggleId );
         $this->assertNotNull( $retrievedToggle );
+        $this->assertEquals( $toggleId, $retrievedToggle->getId() );
+        $this->assertEquals( $toggle->getName(), $retrievedToggle->getName() );
+        $this->assertEquals( $toggle->getType(), $retrievedToggle->getType() );
+        $this->assertEquals( $toggle->isVisible(), $retrievedToggle->isVisible() );
+        $this->assertEquals( $toggle->getReleaseId(), $retrievedToggle->getReleaseId() );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenAToggle_WhenRetrievingToggleByName_ToggleDataReturns()
+    {
+        $toggle = new Toggle();
+        $toggle->setName( "test toggle" );
+        $toggle->setType( ToggleTable::TYPE_SIMPLE );
+        $toggle->setReleaseId( 1 );
+
+        $toggleId = $this->toggleStorage->insertToggle( $toggle );
+
+        $retrievedToggle = $this->toggleStorage->getToggleByName( $toggle->getName() );
+        $this->assertNotNull( $retrievedToggle );
+        $this->assertEquals( $toggleId, $retrievedToggle->getId() );
         $this->assertEquals( $toggle->getName(), $retrievedToggle->getName() );
         $this->assertEquals( $toggle->getType(), $retrievedToggle->getType() );
         $this->assertEquals( $toggle->isVisible(), $retrievedToggle->isVisible() );

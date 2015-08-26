@@ -19,12 +19,12 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
     }
 
     /**
-     * @param $toggleId
+     * @param string $toggleName
      * @return bool
      */
-    public function isToggleVisibleForUsers( $toggleId )
+    public function isToggleVisibleForUsers( $toggleName )
     {
-        $toggle = $this->toggleRetriever->getToggleById( $toggleId );
-        return $toggle->isVisible();
+        $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
+        return $toggle != null && $toggle->isVisible();
     }
 }
