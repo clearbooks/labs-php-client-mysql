@@ -54,6 +54,7 @@ abstract class CamelCaseMapperEntity
     {
         $isNullable = $this->isPropertyNullable( $property );
         $isTransient = $this->isPropertyTransient( $property );
+        $propertyName = $property->getName();
         $propertyValue = $this->{$propertyName};
 
         return ( $isNullable || $propertyValue !== null ) && !$isTransient;
