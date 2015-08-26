@@ -3,8 +3,6 @@ namespace Clearbooks\Labs;
 
 use DI\Container;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 final class Bootstrap
 {
     /**
