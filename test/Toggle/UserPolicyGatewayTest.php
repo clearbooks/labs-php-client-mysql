@@ -84,4 +84,21 @@ class UserPolicyGatewayTest extends LabsTest
         $this->assertFalse( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
     }
+
+    /**
+     * @test
+     */
+    public function GivenUserHasEnabledTheToggle_WhenChangingTogglePolicyToNotSet_ResponseConfirmsNotSet()
+    {
+        $toggleId = $this->createTestToggle();
+        $user = new UserStub( 1 );
+        $this->toggleStorage->setUserPolicy( $toggleId, $user->getId(), true );
+
+        $this->toggleStorage->setUserPolicy( $toggleId, $user->getId(), null );
+        $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggleId, new UserStub( 1 ) );
+
+        $this->assertTrue( $togglePolicyResponse->isNotSet() );
+        $this->assertFalse( $togglePolicyResponse->isEnabled() );
+        $this->assertFalse( $togglePolicyResponse->isDisabled() );
+    }
 }

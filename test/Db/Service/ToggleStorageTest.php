@@ -23,11 +23,12 @@ class ToggleStorageTest extends LabsTest
     /**
      * @test
      */
-    public function GivenWeHaveAToggle_WhenRetrievingToggle_ToggleDataReturns()
+    public function GivenAToggle_WhenRetrievingToggle_ToggleDataReturns()
     {
         $toggle = new Toggle();
         $toggle->setName( "test toggle" );
         $toggle->setType( ToggleTable::TYPE_SIMPLE );
+        $toggle->setReleaseId( 1 );
 
         $toggleId = $this->toggleStorage->insertToggle( $toggle );
 
@@ -37,5 +38,19 @@ class ToggleStorageTest extends LabsTest
         $this->assertEquals( $toggle->getType(), $retrievedToggle->getType() );
         $this->assertEquals( $toggle->isVisible(), $retrievedToggle->isVisible() );
         $this->assertEquals( $toggle->getReleaseId(), $retrievedToggle->getReleaseId() );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenAToggleWithPresetId_WhenInsertingToggle_InsertedIdWillMatchTheSpecifiedId()
+    {
+        $toggle = new Toggle();
+        $toggle->setId( 999 );
+        $toggle->setName( "test toggle" );
+
+        $toggleId = $this->toggleStorage->insertToggle( $toggle );
+
+        $this->assertEquals( $toggle->getId(), $toggleId );
     }
 }
