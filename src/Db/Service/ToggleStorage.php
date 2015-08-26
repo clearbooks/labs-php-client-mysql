@@ -92,10 +92,10 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
-     * @param int $toggleId
-     * @param string $identityId
+     * @param int       $toggleId
+     * @param string    $identityId
      * @param bool|null $policy
-     * @param string $typeOfIdentity
+     * @param string    $typeOfIdentity
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     public function setTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity )
@@ -115,7 +115,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
      * @param string $table
      * @param string $identityField
      * @param string $identityId
-     * @param int $toggleId
+     * @param int    $toggleId
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     private function removeTogglePolicy( $table, $identityField, $identityId, $toggleId )
@@ -125,9 +125,9 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
-     * @param int $toggleId
+     * @param int    $toggleId
      * @param string $identityId
-     * @param string $policy
+     * @param bool   $policy
      * @param string $typeOfIdentity
      * @param string $table
      * @param string $identityField
@@ -140,7 +140,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
         if ( $currentPolicy === null ) {
             $this->connection->insert( $table,
                                        [ $identityField => $identityId, "toggle_id" => $toggleId,
-                                         "active"  => $policy ? 1 : 0 ] );
+                                         "active"       => $policy ? 1 : 0 ] );
         }
 
         $this->connection->update( $table,
@@ -169,7 +169,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
-     * @param int $toggleId
+     * @param int    $toggleId
      * @param string $identityId
      * @param string $typeOfIdentity
      * @return bool|null
