@@ -37,7 +37,7 @@ class ToggleGateWayTest extends LabsTest
         $toggle->setName( "test toggle" );
         $toggle->setVisible( false );
 
-        $toggleId = $this->toggleStorage->insertToggle( $toggle );
+        $this->toggleStorage->insertToggle( $toggle );
         $this->assertFalse( $this->toggleGateway->isToggleVisibleForUsers( $toggle->getName() ) );
     }
 
@@ -50,7 +50,7 @@ class ToggleGateWayTest extends LabsTest
         $toggle->setName( "test toggle" );
         $toggle->setVisible( true );
 
-        $toggleId = $this->toggleStorage->insertToggle( $toggle );
+        $this->toggleStorage->insertToggle( $toggle );
         $this->assertTrue( $this->toggleGateway->isToggleVisibleForUsers( $toggle->getName() ) );
     }
 }
