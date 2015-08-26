@@ -1,7 +1,6 @@
 <?php
 namespace Clearbooks\Labs;
 
-use Clearbooks\Labs\Bootstrap;
 use Doctrine\DBAL\Connection;
 
 abstract class LabsTest extends \PHPUnit_Framework_TestCase

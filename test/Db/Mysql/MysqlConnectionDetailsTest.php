@@ -11,7 +11,7 @@ class MysqlConnectionDetailsTest extends \PHPUnit_Framework_TestCase
         $host = "localhost";
         $port = 3306;
         $databaseName = "test";
-        $user = "testuser";
+        $user = "testUser";
         $password = "testPassword";
         $charset = "utf8";
 
