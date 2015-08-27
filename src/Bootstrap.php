@@ -2,6 +2,7 @@
 namespace Clearbooks\Labs;
 
 use DI\Container;
+use DI\ContainerBuilder;
 
 final class Bootstrap
 {
@@ -42,7 +43,7 @@ final class Bootstrap
             return;
         }
 
-        $containerBuilder = new \DI\ContainerBuilder();
+        $containerBuilder = new ContainerBuilder();
 
         $containerBuilder->addDefinitions( __DIR__ . '/../config/db-config.php' );
         $containerBuilder->addDefinitions( __DIR__ . '/../config/db-mappings.php' );
