@@ -4,8 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4f37ffac57a9b8a0806b0653cc1fd5c5",
+    "hash": "8040676f404a56c64fb1b9c30af30c49",
     "packages": [
+        {
+            "name": "clearbooks/labs-php-client",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clearbooks/labs-php-client.git",
+                "reference": "708020125af679f4f0ef589e9c78b6b814c0a603"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/708020125af679f4f0ef589e9c78b6b814c0a603",
+                "reference": "708020125af679f4f0ef589e9c78b6b814c0a603",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "phpunit/phpunit": "4.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Clearbooks\\Labs\\Client\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Clearbooks\\Labs\\Client\\": "test/"
+                }
+            },
+            "license": [
+                "GPL v2"
+            ],
+            "authors": [
+                {
+                    "name": "Clear Books Engineering Team",
+                    "email": "developers@clearbooks.co.uk"
+                }
+            ],
+            "description": "Sensible releases",
+            "support": {
+                "source": "https://github.com/clearbooks/labs-php-client/tree/master",
+                "issues": "https://github.com/clearbooks/labs-php-client/issues"
+            },
+            "time": "2015-08-27 13:43:11"
+        },
         {
             "name": "container-interop/container-interop",
             "version": "1.1.0",
@@ -32,6 +77,113 @@
             ],
             "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
             "time": "2014-12-30 15:22:37"
+        },
+        {
+            "name": "crodas/class-info",
+            "version": "v0.1.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crodas/ClassInfo.git",
+                "reference": "d8e15a64b2b31b5c3ebece582018eee86e9a2638"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crodas/ClassInfo/zipball/d8e15a64b2b31b5c3ebece582018eee86e9a2638",
+                "reference": "d8e15a64b2b31b5c3ebece582018eee86e9a2638",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "1.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "crodas": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "César D. Rodas",
+                    "email": "crodas@php.net"
+                }
+            ],
+            "description": "Get classes and functions defined in a given file",
+            "time": "2015-05-02 15:25:50"
+        },
+        {
+            "name": "crodas/file-util",
+            "version": "v0.1.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crodas/FileUtils.git",
+                "reference": "57195fbfea90200361b7b04023687154a7c5dcd7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crodas/FileUtils/zipball/57195fbfea90200361b7b04023687154a7c5dcd7",
+                "reference": "57195fbfea90200361b7b04023687154a7c5dcd7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "crodas": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "César D. Rodas",
+                    "email": "crodas@php.net"
+                }
+            ],
+            "description": "Useful libraries to manipulate files",
+            "time": "2015-07-31 06:29:10"
+        },
+        {
+            "name": "crodas/notoj",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crodas/Notoj.git",
+                "reference": "15c6d108f669a542808061aa4556c0eecfc53162"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crodas/Notoj/zipball/15c6d108f669a542808061aa4556c0eecfc53162",
+                "reference": "15c6d108f669a542808061aa4556c0eecfc53162",
+                "shasum": ""
+            },
+            "require": {
+                "crodas/class-info": "^0.1.11",
+                "crodas/file-util": "^0.1.18",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Notoj": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-4-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "César D. Rodas",
+                    "email": "crodas@php.net"
+                }
+            ],
+            "description": "Annotation parser. Uses reflection and provides cache out of the box.",
+            "time": "2015-08-08 13:59:42"
         },
         {
             "name": "doctrine/annotations",
@@ -501,6 +653,51 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "nikic/php-parser",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "ac05ef6f95bf8361549604b6031c115f92f39528"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ac05ef6f95bf8361549604b6031c115f92f39528",
+                "reference": "ac05ef6f95bf8361549604b6031c115f92f39528",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "lib/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2015-01-18 11:29:59"
         },
         {
             "name": "php-di/invoker",
@@ -1595,7 +1792,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "clearbooks/labs-php-client": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

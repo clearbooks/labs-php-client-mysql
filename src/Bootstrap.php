@@ -3,9 +3,7 @@ namespace Clearbooks\Labs;
 
 use DI\Container;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
-class Bootstrap
+final class Bootstrap
 {
     /**
      * @var Bootstrap
@@ -22,11 +20,10 @@ class Bootstrap
      */
     private $initialized = false;
 
-    private function __construct()
-    {
-
-    }
-
+    /**
+     * @codeCoverageIgnore
+     * @return Bootstrap
+     */
     public static function getInstance()
     {
         if ( self::$instance == null ) {
@@ -36,6 +33,9 @@ class Bootstrap
         return self::$instance;
     }
 
+    /**
+     * Initialization (e.g.: DI container)
+     */
     public function init()
     {
         if ( $this->initialized ) {

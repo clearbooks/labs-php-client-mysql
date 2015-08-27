@@ -10,6 +10,9 @@ class DoctrineConnectionProvider
      */
     private $connectionDetails;
 
+    /**
+     * @param ConnectionDetails $connectionDetails
+     */
     public function __construct( ConnectionDetails $connectionDetails )
     {
         $this->connectionDetails = $connectionDetails;

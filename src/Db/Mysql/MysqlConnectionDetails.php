@@ -35,6 +35,14 @@ class MysqlConnectionDetails implements ConnectionDetails
      */
     private $charset;
 
+    /**
+     * @param string $host
+     * @param int $port
+     * @param string $databaseName
+     * @param string $user
+     * @param string $password
+     * @param string $charset
+     */
     public function __construct( $host, $port, $databaseName, $user, $password, $charset )
     {
         $this->host = $host;

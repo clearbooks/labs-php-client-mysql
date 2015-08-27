@@ -14,7 +14,7 @@ class DoctrineConnectionProviderTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
         $this->doctrineConnectionProvider = Bootstrap::getInstance()->getDIContainer()
-                                                     ->get( 'Clearbooks\Labs\Db\DoctrineConnectionProvider' );
+                                                     ->get( DoctrineConnectionProvider::class );
     }
 
     /**
