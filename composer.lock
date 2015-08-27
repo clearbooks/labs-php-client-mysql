@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "e62cb852c9ec8d99d50eaef4f5683dd5d4275a53"
+                "reference": "708020125af679f4f0ef589e9c78b6b814c0a603"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/e62cb852c9ec8d99d50eaef4f5683dd5d4275a53",
-                "reference": "e62cb852c9ec8d99d50eaef4f5683dd5d4275a53",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/708020125af679f4f0ef589e9c78b6b814c0a603",
+                "reference": "708020125af679f4f0ef589e9c78b6b814c0a603",
                 "shasum": ""
             },
             "require-dev": {
@@ -49,7 +49,7 @@
                 "source": "https://github.com/clearbooks/labs-php-client/tree/master",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2015-08-26 15:16:53"
+            "time": "2015-08-27 13:43:11"
         },
         {
             "name": "container-interop/container-interop",

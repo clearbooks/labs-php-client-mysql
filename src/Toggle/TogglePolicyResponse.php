@@ -19,14 +19,6 @@ class TogglePolicyResponse implements \Clearbooks\Labs\Client\Toggle\UseCase\Res
     /**
      * @return bool
      */
-    public function isDisabled()
-    {
-        return $this->togglePolicyActive === false;
-    }
-
-    /**
-     * @return bool
-     */
     public function isEnabled()
     {
         return $this->togglePolicyActive === true;

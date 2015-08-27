@@ -28,7 +28,6 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 
         $this->assertTrue( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
-        $this->assertFalse( $togglePolicyResponse->isDisabled() );
     }
 
     /**
@@ -44,7 +43,6 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 
         $this->assertTrue( $togglePolicyResponse->isEnabled() );
         $this->assertFalse( $togglePolicyResponse->isNotSet() );
-        $this->assertFalse( $togglePolicyResponse->isDisabled() );
     }
 
     /**
@@ -58,7 +56,6 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 
         $togglePolicyResponse = $this->userPolicyGateway->getTogglePolicy( $toggle->getName(), $user );
 
-        $this->assertTrue( $togglePolicyResponse->isDisabled() );
         $this->assertFalse( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
     }
@@ -77,6 +74,5 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 
         $this->assertTrue( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
-        $this->assertFalse( $togglePolicyResponse->isDisabled() );
     }
 }
