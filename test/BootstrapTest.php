@@ -1,6 +1,8 @@
 <?php
 namespace Clearbooks\Labs;
 
+use Clearbooks\Labs\Db\DbDIDefinitionProvider;
+
 class BootstrapTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -8,7 +10,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
      */
     public function GivenAnUninitializedBootstrapInstance_WhenCallingInit_NoExceptionIsThrown()
     {
-        ( new Bootstrap() )->init();
+        ( new Bootstrap() )->init( [ DbDIDefinitionProvider::class ] );
     }
 
     /**
@@ -17,7 +19,7 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     public function GivenAnUninitializedBootstrapInstance_WhenCallingInit_DIContainerIsAvailable()
     {
         $bootstrap = new Bootstrap();
-        $bootstrap->init();
+        $bootstrap->init( [ DbDIDefinitionProvider::class ] );
         $this->assertNotNull( $bootstrap->getDIContainer() );
     }
 
@@ -27,9 +29,9 @@ class BootstrapTest extends \PHPUnit_Framework_TestCase
     public function GivenAnUninitializedBootstrapInstance_WhenCallingInitTwice_DIContainerIsTheSameInstanceAfterAsBefore()
     {
         $bootstrap = new Bootstrap();
-        $bootstrap->init();
+        $bootstrap->init( [ DbDIDefinitionProvider::class ] );
         $container1 = $bootstrap->getDIContainer();
-        $bootstrap->init();
+        $bootstrap->init( [ DbDIDefinitionProvider::class ] );
         $container2 = $bootstrap->getDIContainer();
         $this->assertTrue( $container1 === $container2 );
     }

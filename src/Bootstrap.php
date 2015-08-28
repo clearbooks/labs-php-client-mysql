@@ -4,7 +4,7 @@ namespace Clearbooks\Labs;
 use DI\Container;
 use DI\ContainerBuilder;
 
-final class Bootstrap
+class Bootstrap
 {
     /**
      * @var Bootstrap
@@ -36,8 +36,10 @@ final class Bootstrap
 
     /**
      * Initialization (e.g.: DI container)
+     *
+     * @param string[] $definitionProviderClasses
      */
-    public function init()
+    public function init( array $definitionProviderClasses )
     {
         if ( $this->initialized ) {
             return;
@@ -45,8 +47,15 @@ final class Bootstrap
 
         $containerBuilder = new ContainerBuilder();
 
-        $containerBuilder->addDefinitions( __DIR__ . '/../config/db-config.php' );
-        $containerBuilder->addDefinitions( __DIR__ . '/../config/db-mappings.php' );
+        foreach ( $definitionProviderClasses as $definitionProviderClass ) {
+            /** @var DIDefinitionProvider $definitionProvider */
+            $definitionProvider = new $definitionProviderClass;
+
+            $definitionPaths = $definitionProvider->getDefinitionPaths();
+            foreach ( $definitionPaths as $definitionPath ) {
+                $containerBuilder->addDefinitions( $definitionPath );
+            }
+        }
 
         $this->DIContainer = $containerBuilder->build();
 
