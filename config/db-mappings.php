@@ -1,5 +1,6 @@
 <?php
 
+use Clearbooks\Labs\Client\Toggle\Gateway\ToggleGateway;
 use Clearbooks\Labs\Db\ConnectionDetails;
 use Clearbooks\Labs\Db\DoctrineConnectionProvider;
 use Clearbooks\Labs\Db\Mysql\MysqlConnectionDetails;
@@ -27,5 +28,6 @@ return [
         },
         ToggleRetriever::class      => DI\object( ToggleStorage::class ),
         UserPolicyRetriever::class  => DI\object( ToggleStorage::class ),
-        GroupPolicyRetriever::class => DI\object( ToggleStorage::class )
+        GroupPolicyRetriever::class => DI\object( ToggleStorage::class ),
+        ToggleGateway::class        => DI\object( Clearbooks\Labs\Toggle\ToggleGateway::class )
 ];
