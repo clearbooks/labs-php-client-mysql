@@ -47,6 +47,19 @@ class Bootstrap
 
         $containerBuilder = new ContainerBuilder();
 
+        $this->loadDefinitions( $containerBuilder, $definitionProviderClasses );
+
+        $this->DIContainer = $containerBuilder->build();
+
+        $this->initialized = true;
+    }
+
+    /**
+     * @param ContainerBuilder $containerBuilder
+     * @param array            $definitionProviderClasses
+     */
+    private function loadDefinitions( ContainerBuilder $containerBuilder, array $definitionProviderClasses )
+    {
         foreach ( $definitionProviderClasses as $definitionProviderClass ) {
             /** @var DIDefinitionProvider $definitionProvider */
             $definitionProvider = new $definitionProviderClass;
@@ -56,10 +69,6 @@ class Bootstrap
                 $containerBuilder->addDefinitions( $definitionPath );
             }
         }
-
-        $this->DIContainer = $containerBuilder->build();
-
-        $this->initialized = true;
     }
 
     /**
