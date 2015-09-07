@@ -2,10 +2,10 @@
 namespace Clearbooks\Labs\Toggle;
 
 use Clearbooks\Labs\Client\Toggle\Entity\Identity;
-use Clearbooks\Labs\Client\Toggle\Gateway\TogglePolicyGateway;
+use Clearbooks\Labs\Client\Toggle\Gateway\UserTogglePolicyGateway;
 use Clearbooks\Labs\Toggle\UseCase\UserPolicyRetriever;
 
-class UserPolicyGateway implements TogglePolicyGateway
+class UserPolicyGateway implements UserTogglePolicyGateway
 {
     /**
      * @var UserPolicyRetriever
