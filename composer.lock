@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8040676f404a56c64fb1b9c30af30c49",
+    "hash": "b321c095b926c4acc6db9dd75e96c991",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
@@ -50,6 +50,37 @@
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
             "time": "2015-09-04 14:08:31"
+        },
+        {
+            "name": "clearbooks/labs-schema",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/clearbooks/labs-schema.git",
+                "reference": "d0da401d615170fd5a4cb76a3f6e7342cffb3d6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/clearbooks/labs-schema/zipball/d0da401d615170fd5a4cb76a3f6e7342cffb3d6f",
+                "reference": "d0da401d615170fd5a4cb76a3f6e7342cffb3d6f",
+                "shasum": ""
+            },
+            "type": "library",
+            "license": [
+                "GPL v2"
+            ],
+            "authors": [
+                {
+                    "name": "Clear Books Engineering Team",
+                    "email": "developers@clearbooks.co.uk"
+                }
+            ],
+            "description": "DB schema for Labs",
+            "support": {
+                "source": "https://github.com/clearbooks/labs-schema/tree/master",
+                "issues": "https://github.com/clearbooks/labs-schema/issues"
+            },
+            "time": "2015-09-08 11:26:43"
         },
         {
             "name": "container-interop/container-interop",
@@ -744,16 +775,16 @@
         },
         {
             "name": "php-di/php-di",
-            "version": "5.0.4",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-DI/PHP-DI.git",
-                "reference": "b8e9f51c41047dd463e0415167be2155f305c187"
+                "reference": "f4a8088fa4eb480ee66c51b5ee4e4e30cce78489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-DI/PHP-DI/zipball/b8e9f51c41047dd463e0415167be2155f305c187",
-                "reference": "b8e9f51c41047dd463e0415167be2155f305c187",
+                "url": "https://api.github.com/repos/PHP-DI/PHP-DI/zipball/f4a8088fa4eb480ee66c51b5ee4e4e30cce78489",
+                "reference": "f4a8088fa4eb480ee66c51b5ee4e4e30cce78489",
                 "shasum": ""
             },
             "require": {
@@ -767,14 +798,14 @@
             },
             "require-dev": {
                 "doctrine/annotations": "~1.2",
-                "doctrine/cache": "~1.0",
+                "doctrine/cache": "~1.4",
                 "mnapoli/phpunit-easymock": "~0.1.4",
                 "ocramius/proxy-manager": "~1.0",
                 "phpunit/phpunit": "~4.5"
             },
             "suggest": {
                 "doctrine/annotations": "Install it if you want to use annotations (version ~1.2)",
-                "doctrine/cache": "Install it if you want to use the cache (version ~1.0)",
+                "doctrine/cache": "Install it if you want to use the cache (version ~1.4)",
                 "ocramius/proxy-manager": "Install it if you want to use lazy injection (version ~1.0)"
             },
             "type": "library",
@@ -797,7 +828,7 @@
                 "dependency injection",
                 "di"
             ],
-            "time": "2015-09-02 16:50:29"
+            "time": "2015-09-08 08:56:29"
         },
         {
             "name": "php-di/phpdoc-reader",
@@ -1793,6 +1824,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "clearbooks/labs-schema": 20,
         "clearbooks/labs-php-client": 20
     },
     "prefer-stable": false,
