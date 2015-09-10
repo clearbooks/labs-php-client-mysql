@@ -9,10 +9,7 @@
     }
   ],
   "autoload": {
-    "psr-4": {"Clearbooks\\Labs\\": "src/"}
-  },
-  "autoload-dev": {
-    "psr-4": {"Clearbooks\\Labs\\": "test/"}
+    "psr-4": {"Clearbooks\\Labs\\": ["src/", "test/"]}
   },
   "require":{
     "clearbooks/labs-schema": "dev-master",
