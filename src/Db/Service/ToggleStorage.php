@@ -154,7 +154,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     private function createOrModifyTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity, $table,
                                                  $identityField )
     {
-        $currentPolicy = $this->getPolicyOfToggleByName( $toggleId, $identityId, $typeOfIdentity );
+        $currentPolicy = $this->getPolicyOfToggleById( $toggleId, $identityId, $typeOfIdentity );
 
         if ( $currentPolicy === null ) {
             $this->connection->insert( $table,
@@ -168,7 +168,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
-     * @param strin  $toggleName
+     * @param string  $toggleName
      * @param string $userId
      * @return bool|null
      */
