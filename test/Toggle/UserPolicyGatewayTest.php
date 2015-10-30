@@ -38,8 +38,7 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
     {
         $userId = 1;
         $toggle = $this->createTestToggle();
-        $this->toggleStorage->setUserPolicy( $toggle->getId(), $userId, true );
-        $this->assertNotNull( $this->toggleStorage->getPolicyOfToggleByName( $toggle->getName(), $userId, 'user' ) );
+        $this->toggleStorage->getPolicyOfToggleByName( $toggle->getName(), $userId, 'user' )
     }
 
     /**
