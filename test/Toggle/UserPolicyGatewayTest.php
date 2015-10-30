@@ -36,17 +36,26 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
      */
     public function GivenNoError_On_getPolicyOfToggleByName()
     {
+        $userId = 1;
         $toggle = $this->createTestToggle();
-        $this->toggleStorage->getPolicyOfToggleByName( $toggle->getName(), 1, 'user' );
+        $this->toggleStorage->setUserPolicy( $toggle->getId(), $userId, true );
+        $this->assertNotNull( $this->toggleStorage->getPolicyOfToggleByName( $toggle->getName(), $userId, 'user' ) );
     }
 
+    /**
+     * @test
+     */
+    public function GivenNoError_On_getPolicyOfToggleByName_noToggle()
+    {
+        $this->assertNull( $this->toggleStorage->getPolicyOfToggleByName( 'Some random magic text', 1, 'user' ) );
+    }
 
     /**
      * @test
      */
     public function GivenNoError_On_getPolicyOfToggleById_noToggle()
     {
-        $this->toggleStorage->getPolicyOfToggleById( self::MAGIC_NON_EXISTENT_TOGGLE_ID, 1, 'user' );
+        $this->assertNull( $this->toggleStorage->getPolicyOfToggleById( self::MAGIC_NON_EXISTENT_TOGGLE_ID, 1, 'user' ) );
     }
 
     /**
