@@ -33,6 +33,15 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
     /**
      * @test
      */
+    public function GivenNoError_On_getPolicyOfToggleByName()
+    {
+        $toggle = $this->createTestToggle();
+        $this->toggleStorage->getPolicyOfToggleByName( $toggle->getId(), 1, 'user' );
+    }
+
+    /**
+     * @test
+     */
     public function GivenUserHasEnabledTheToggle_WhenRequestingTogglePolicy_ResponseConfirmsEnabled()
     {
         $toggle = $this->createTestToggle();
