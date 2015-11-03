@@ -6,6 +6,7 @@ use Clearbooks\Labs\Toggle\Entity\UserStub;
 
 class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 {
+    const MAGIC_NON_EXISTENT_TOGGLE_ID = 999999;
     /**
      * @var UserPolicyGateway
      */
@@ -28,6 +29,32 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 
         $this->assertTrue( $togglePolicyResponse->isNotSet() );
         $this->assertFalse( $togglePolicyResponse->isEnabled() );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNoError_On_getPolicyOfToggleByName()
+    {
+        $userId = 1;
+        $toggle = $this->createTestToggle();
+        $this->toggleStorage->getPolicyOfToggleByName( $toggle->getName(), $userId, 'user' );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNoError_On_getPolicyOfToggleByName_noToggle()
+    {
+        $this->assertNull( $this->toggleStorage->getPolicyOfToggleByName( 'Some random magic text', 1, 'user' ) );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNoError_On_getPolicyOfToggleById_noToggle()
+    {
+        $this->assertNull( $this->toggleStorage->getPolicyOfToggleById( self::MAGIC_NON_EXISTENT_TOGGLE_ID, 1, 'user' ) );
     }
 
     /**

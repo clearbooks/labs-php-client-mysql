@@ -154,7 +154,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     private function createOrModifyTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity, $table,
                                                  $identityField )
     {
-        $currentPolicy = $this->getPolicyOfToggle( $toggleId, $identityId, $typeOfIdentity );
+        $currentPolicy = $this->getPolicyOfToggleById( $toggleId, $identityId, $typeOfIdentity );
 
         if ( $currentPolicy === null ) {
             $this->connection->insert( $table,
@@ -168,13 +168,13 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
     }
 
     /**
-     * @param strin  $toggleName
+     * @param string  $toggleName
      * @param string $userId
      * @return bool|null
      */
     public function getUserPolicyOfToggle( $toggleName, $userId )
     {
-        return $this->getPolicyOfToggle( $toggleName, $userId, "user" );
+        return $this->getPolicyOfToggleByName( $toggleName, $userId, "user" );
     }
 
     /**
@@ -184,7 +184,7 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
      */
     public function getGroupPolicyOfToggle( $toggleName, $groupId )
     {
-        return $this->getPolicyOfToggle( $toggleName, $groupId, "group" );
+        return $this->getPolicyOfToggleByName( $toggleName, $groupId, "group" );
     }
 
     /**
@@ -193,9 +193,25 @@ class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicy
      * @param string $typeOfIdentity
      * @return bool|null
      */
-    public function getPolicyOfToggle( $toggleName, $identityId, $typeOfIdentity )
+    public function getPolicyOfToggleByName( $toggleName, $identityId, $typeOfIdentity )
     {
         $toggle = $this->getToggleByName( $toggleName );
+        if ( $toggle == null ) {
+            return null;
+        }
+
+        return $this->getPolicyOfExistingToggle( $toggle, $identityId, $typeOfIdentity );
+    }
+
+    /**
+     * @param int $toggleId
+     * @param string $identityId
+     * @param string $typeOfIdentity
+     * @return bool|null
+     */
+    public function getPolicyOfToggleById( $toggleId, $identityId, $typeOfIdentity )
+    {
+        $toggle = $this->getToggleById( $toggleId );
         if ( $toggle == null ) {
             return null;
         }
