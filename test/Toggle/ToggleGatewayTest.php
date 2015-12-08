@@ -2,12 +2,17 @@
 namespace Clearbooks\Labs\Toggle;
 
 use Clearbooks\Labs\Bootstrap;
+use Clearbooks\Labs\DateTime\StaticDateTimeProvider;
+use Clearbooks\Labs\Db\Entity\Release;
+use Clearbooks\Labs\Db\Service\ReleaseStorage;
 use Clearbooks\Labs\Db\Table\Toggle as ToggleTable;
 use Clearbooks\Labs\Db\Entity\Toggle;
 use Clearbooks\Labs\Db\Service\ToggleStorage;
 use Clearbooks\Labs\LabsTest;
+use Clearbooks\Labs\Toggle\UseCase\ReleaseRetriever;
+use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
 
-class ToggleGateWayTest extends LabsTest
+class ToggleGatewayTest extends LabsTest
 {
     /**
      * @var ToggleStorage
@@ -15,9 +20,19 @@ class ToggleGateWayTest extends LabsTest
     private $toggleStorage;
 
     /**
+     * @var ReleaseStorage
+     */
+    private $releaseStorage;
+
+    /**
      * @var ToggleGateway
      */
     private $toggleGateway;
+
+    /**
+     * @var StaticDateTimeProvider
+     */
+    private $dateTimeProvider;
 
     public function setUp()
     {
@@ -25,8 +40,17 @@ class ToggleGateWayTest extends LabsTest
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
                                         ->get( ToggleStorage::class );
 
-        $this->toggleGateway = Bootstrap::getInstance()->getDIContainer()
-                                        ->get( ToggleGateway::class );
+        $this->releaseStorage = Bootstrap::getInstance()->getDIContainer()
+                                         ->get( ReleaseStorage::class );
+
+        $toggleRetriever = Bootstrap::getInstance()->getDIContainer()
+                                    ->get( ToggleRetriever::class );
+
+        $releaseRetriever = Bootstrap::getInstance()->getDIContainer()
+                                     ->get( ReleaseRetriever::class );
+
+        $this->dateTimeProvider = new StaticDateTimeProvider();
+        $this->toggleGateway = new ToggleGateway( $toggleRetriever, $releaseRetriever, $this->dateTimeProvider );
     }
 
     /**
@@ -79,5 +103,92 @@ class ToggleGateWayTest extends LabsTest
 
         $this->toggleStorage->insertToggle( $toggle );
         $this->assertTrue( $this->toggleGateway->isGroupToggle( $toggle->getName() ) );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenToggleWithoutRelease_WhenCallingIsReleaseDateOfToggleReleaseTodayOrInThePast_ReturnsFalse()
+    {
+        $toggle = new Toggle();
+        $toggle->setName( "test toggle" );
+        $toggle->setType( ToggleTable::TYPE_SIMPLE );
+
+        $this->toggleStorage->insertToggle( $toggle );
+        $this->assertFalse( $this->toggleGateway->isReleaseDateOfToggleReleaseTodayOrInThePast( $toggle->getName() ) );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenToggleWithReleaseButWithoutReleaseDate_WhenCallingIsReleaseDateOfToggleReleaseTodayOrInThePast_ReturnsFalse()
+    {
+        $toggle = $this->createToggleWithRelease( null );
+        $this->assertFalse( $this->toggleGateway->isReleaseDateOfToggleReleaseTodayOrInThePast( $toggle->getName() ) );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenToggleWithFutureRelease_WhenCallingIsReleaseDateOfToggleReleaseTodayOrInThePast_ReturnsFalse()
+    {
+        $currentDate = new \DateTime( "2015-01-01" );
+        $releaseDate = new \DateTime( "2015-02-01" );
+        $this->dateTimeProvider->setDateTime( $currentDate );
+        $toggle = $this->createToggleWithRelease( $releaseDate );
+
+        $this->assertFalse( $this->toggleGateway->isReleaseDateOfToggleReleaseTodayOrInThePast( $toggle->getName() ) );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenToggleWithCurrentDateRelease_WhenCallingIsReleaseDateOfToggleReleaseTodayOrInThePast_ReturnsTrue()
+    {
+        $currentDate = new \DateTime( "2015-01-01" );
+        $releaseDate = clone $currentDate;
+        $this->dateTimeProvider->setDateTime( $currentDate );
+        $toggle = $this->createToggleWithRelease( $releaseDate );
+
+        $this->assertTrue( $this->toggleGateway->isReleaseDateOfToggleReleaseTodayOrInThePast( $toggle->getName() ) );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenToggleWithPastRelease_WhenCallingIsReleaseDateOfToggleReleaseTodayOrInThePast_ReturnsTrue()
+    {
+        $currentDate = new \DateTime( "2015-01-01" );
+        $releaseDate = new \DateTime( "2014-01-01" );
+        $this->dateTimeProvider->setDateTime( $currentDate );
+        $toggle = $this->createToggleWithRelease( $releaseDate );
+
+        $this->assertTrue( $this->toggleGateway->isReleaseDateOfToggleReleaseTodayOrInThePast( $toggle->getName() ) );
+    }
+
+    /**
+     * @param \DateTime|null $releaseDate
+     * @return Toggle
+     */
+    private function createToggleWithRelease( $releaseDate )
+    {
+        $release = new Release();
+        $release->setName( "test release" );
+        $release->setVisibility( true );
+
+        if ( $releaseDate instanceof \DateTime ) {
+            $release->setReleaseDate( $releaseDate );
+        }
+
+        $releaseId = $this->releaseStorage->insertRelease( $release );
+
+        $toggle = new Toggle();
+        $toggle->setName( "test toggle" );
+        $toggle->setType( ToggleTable::TYPE_SIMPLE );
+        $toggle->setReleaseId( $releaseId );
+        $toggleId = $this->toggleStorage->insertToggle( $toggle );
+        $toggle->setId( $toggleId );
+
+        return $toggle;
     }
 }

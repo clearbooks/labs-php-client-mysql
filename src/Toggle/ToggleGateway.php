@@ -1,7 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Toggle;
 
+use Clearbooks\Labs\DateTime\UseCase\DateTimeProvider;
 use Clearbooks\Labs\Db\Table\Toggle as ToggleTable;
+use Clearbooks\Labs\Toggle\UseCase\ReleaseRetriever;
 use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
 
 class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGateway
@@ -12,11 +14,26 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
     private $toggleRetriever;
 
     /**
-     * @param ToggleRetriever $toggleRetriever
+     * @var ReleaseRetriever
      */
-    public function __construct( ToggleRetriever $toggleRetriever )
+    private $releaseRetriever;
+
+    /**
+     * @var DateTimeProvider
+     */
+    private $dateTimeProvider;
+
+    /**
+     * @param ToggleRetriever $toggleRetriever
+     * @param ReleaseRetriever $releaseRetriever
+     * @param DateTimeProvider $dateTimeProvider
+     */
+    public function __construct( ToggleRetriever $toggleRetriever, ReleaseRetriever $releaseRetriever,
+                                 DateTimeProvider $dateTimeProvider )
     {
         $this->toggleRetriever = $toggleRetriever;
+        $this->releaseRetriever = $releaseRetriever;
+        $this->dateTimeProvider = $dateTimeProvider;
     }
 
     /**
@@ -37,5 +54,21 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
     {
         $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
         return $toggle != null && $toggle->getType() === ToggleTable::TYPE_GROUP;
+    }
+
+    /**
+     * @param string $toggleName
+     * @return bool
+     */
+    public function isReleaseDateOfToggleReleaseTodayOrInThePast( $toggleName )
+    {
+        $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
+        if ( $toggle == null || empty( $toggle->getReleaseId() ) ) {
+            return false;
+        }
+
+        $release = $this->releaseRetriever->getReleaseById( $toggle->getReleaseId() );
+        return $release != null && $release->getReleaseDate() != null &&
+               $release->getReleaseDate() <= $this->dateTimeProvider->getDateTime();
     }
 }
