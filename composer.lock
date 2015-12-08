@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b321c095b926c4acc6db9dd75e96c991",
+    "hash": "7598ef97dc6137392a8a285ab7816cb0",
+    "content-hash": "e9a343c968ae0f6a2090bc4d2c7ad5ae",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "34c16be3fa7e24277e5b051679b0a782753a3ef6"
+                "reference": "82258e5f15adbac75d44eb64f6b01255c09d9c52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/34c16be3fa7e24277e5b051679b0a782753a3ef6",
-                "reference": "34c16be3fa7e24277e5b051679b0a782753a3ef6",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/82258e5f15adbac75d44eb64f6b01255c09d9c52",
+                "reference": "82258e5f15adbac75d44eb64f6b01255c09d9c52",
                 "shasum": ""
             },
             "require-dev": {
@@ -27,12 +28,10 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Clearbooks\\Labs\\Client\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Clearbooks\\Labs\\Client\\": "test/"
+                    "Clearbooks\\Labs\\Client\\": [
+                        "src/",
+                        "test/"
+                    ]
                 }
             },
             "license": [
@@ -49,20 +48,20 @@
                 "source": "https://github.com/clearbooks/labs-php-client/tree/master",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2015-09-04 14:08:31"
+            "time": "2015-09-09 13:38:03"
         },
         {
             "name": "clearbooks/labs-schema",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-schema.git",
-                "reference": "d0da401d615170fd5a4cb76a3f6e7342cffb3d6f"
+                "reference": "1b489b82a1b775318a632fe9c0fdd1090a685f24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-schema/zipball/d0da401d615170fd5a4cb76a3f6e7342cffb3d6f",
-                "reference": "d0da401d615170fd5a4cb76a3f6e7342cffb3d6f",
+                "url": "https://api.github.com/repos/clearbooks/labs-schema/zipball/1b489b82a1b775318a632fe9c0fdd1090a685f24",
+                "reference": "1b489b82a1b775318a632fe9c0fdd1090a685f24",
                 "shasum": ""
             },
             "type": "library",
@@ -80,7 +79,7 @@
                 "source": "https://github.com/clearbooks/labs-schema/tree/master",
                 "issues": "https://github.com/clearbooks/labs-schema/issues"
             },
-            "time": "2015-09-08 11:26:43"
+            "time": "2015-10-14 08:19:26"
         },
         {
             "name": "container-interop/container-interop",
@@ -1823,10 +1822,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "clearbooks/labs-schema": 20,
-        "clearbooks/labs-php-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
