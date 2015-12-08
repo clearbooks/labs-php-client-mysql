@@ -6,7 +6,7 @@ use Clearbooks\Labs\Db\Entity\Toggle;
 class CachedToggleStorage implements ToggleStorageOperations
 {
     /**
-     * @var ToggleStorage
+     * @var ToggleStorageOperations
      */
     private $toggleStorage;
 
