@@ -9,6 +9,6 @@ class StringifyableTableTest extends \PHPUnit_Framework_TestCase
     public function WhenConvertingTableObjectToString_ReturnedStringMatchesTheResultOfGetName()
     {
         $table = new DummyStringifyableTable();
-        $this->assertEquals( $table->getName(), (string)$table );
+        $this->assertEquals( "`" . $table->getName() . "`", (string)$table );
     }
 }

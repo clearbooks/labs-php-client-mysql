@@ -5,12 +5,9 @@ use Clearbooks\Labs\Db\Table\Toggle as ToggleTable;
 use Clearbooks\Labs\Db\Table\UserPolicy as UserPolicyTable;
 use Clearbooks\Labs\Db\Table\GroupPolicy as GroupPolicyTable;
 use Clearbooks\Labs\Db\Entity\Toggle;
-use Clearbooks\Labs\Toggle\UseCase\GroupPolicyRetriever;
-use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
-use Clearbooks\Labs\Toggle\UseCase\UserPolicyRetriever;
 use Doctrine\DBAL\Connection;
 
-class ToggleStorage implements ToggleRetriever, UserPolicyRetriever, GroupPolicyRetriever
+class ToggleStorage implements ToggleStorageOperations
 {
     /**
      * @var Connection

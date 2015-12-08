@@ -5,6 +5,6 @@ abstract class StringifyableTable implements Table
 {
     public function __toString()
     {
-        return $this->getName();
+        return "`" . $this->getName() . "`";
     }
 }
