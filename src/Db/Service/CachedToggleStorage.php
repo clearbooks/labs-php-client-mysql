@@ -2,9 +2,8 @@
 namespace Clearbooks\Labs\Db\Service;
 
 use Clearbooks\Labs\Db\Entity\Toggle;
-use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
 
-class CachedToggleStorage implements ToggleRetriever
+class CachedToggleStorage implements ToggleStorageOperations
 {
     /**
      * @var ToggleStorage
@@ -22,9 +21,19 @@ class CachedToggleStorage implements ToggleRetriever
     private $toggleNameToToggleMap = [ ];
 
     /**
-     * @param ToggleStorage $toggleStorage
+     * @var array
      */
-    public function __construct( ToggleStorage $toggleStorage )
+    private $toggleGroupPolicyMap = [ ];
+
+    /**
+     * @var array
+     */
+    private $toggleUserPolicyMap = [ ];
+
+    /**
+     * @param ToggleStorageOperations $toggleStorage
+     */
+    public function __construct( ToggleStorageOperations $toggleStorage )
     {
         $this->toggleStorage = $toggleStorage;
     }
@@ -53,5 +62,41 @@ class CachedToggleStorage implements ToggleRetriever
         }
 
         return $this->toggleNameToToggleMap[$toggleName];
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $groupId
+     * @return bool|null
+     */
+    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    {
+        if ( !isset( $this->toggleGroupPolicyMap[$toggleName] ) ) {
+            $this->toggleGroupPolicyMap[$toggleName] = [ ];
+        }
+
+        if ( !isset( $this->toggleGroupPolicyMap[$toggleName][$groupId] ) ) {
+            $this->toggleGroupPolicyMap[$toggleName][$groupId] = $this->toggleStorage->getGroupPolicyOfToggle( $toggleName, $groupId );
+        }
+
+        return $this->toggleGroupPolicyMap[$toggleName][$groupId];
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $userId
+     * @return bool|null
+     */
+    public function getUserPolicyOfToggle( $toggleName, $userId )
+    {
+        if ( !isset( $this->toggleUserPolicyMap[$toggleName] ) ) {
+            $this->toggleUserPolicyMap[$toggleName] = [ ];
+        }
+
+        if ( !isset( $this->toggleUserPolicyMap[$toggleName][$userId] ) ) {
+            $this->toggleUserPolicyMap[$toggleName][$userId] = $this->toggleStorage->getUserPolicyOfToggle( $toggleName, $userId );
+        }
+
+        return $this->toggleUserPolicyMap[$toggleName][$userId];
     }
 }

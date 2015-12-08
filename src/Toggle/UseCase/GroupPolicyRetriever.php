@@ -4,9 +4,9 @@ namespace Clearbooks\Labs\Toggle\UseCase;
 interface GroupPolicyRetriever
 {
     /**
-     * @param int $toggleId
+     * @param string $toggleName
      * @param string $groupId
      * @return bool|null
      */
-    public function getGroupPolicyOfToggle( $toggleId, $groupId );
+    public function getGroupPolicyOfToggle( $toggleName, $groupId );
 }

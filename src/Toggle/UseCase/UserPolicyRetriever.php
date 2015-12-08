@@ -4,9 +4,9 @@ namespace Clearbooks\Labs\Toggle\UseCase;
 interface UserPolicyRetriever
 {
     /**
-     * @param int $toggleId
+     * @param string $toggleName
      * @param string $userId
      * @return bool|null
      */
-    public function getUserPolicyOfToggle( $toggleId, $userId );
+    public function getUserPolicyOfToggle( $toggleName, $userId );
 }

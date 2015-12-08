@@ -2,6 +2,8 @@
 namespace Clearbooks\Labs\Toggle;
 
 use Clearbooks\Labs\DateTime\UseCase\DateTimeProvider;
+use Clearbooks\Labs\Db\Entity\Release;
+use Clearbooks\Labs\Db\Entity\Toggle;
 use Clearbooks\Labs\Db\Table\Toggle as ToggleTable;
 use Clearbooks\Labs\Toggle\UseCase\ReleaseRetriever;
 use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
@@ -63,12 +65,30 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
     public function isReleaseDateOfToggleReleaseTodayOrInThePast( $toggleName )
     {
         $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
-        if ( $toggle == null || empty( $toggle->getReleaseId() ) ) {
+        if ( !$this->toggleHasRelease( $toggle ) ) {
             return false;
         }
 
         $release = $this->releaseRetriever->getReleaseById( $toggle->getReleaseId() );
-        return $release != null && $release->getReleaseDate() != null &&
+        return $this->isReleaseDateSet( $release ) &&
                $release->getReleaseDate() <= $this->dateTimeProvider->getDateTime();
+    }
+
+    /**
+     * @param Toggle|null $toggle
+     * @return bool
+     */
+    private function toggleHasRelease( $toggle )
+    {
+        return $toggle instanceof Toggle && !empty( $toggle->getReleaseId() );
+    }
+
+    /**
+     * @param Release|null $release
+     * @return bool
+     */
+    private function isReleaseDateSet( $release )
+    {
+        return $release instanceof Release && $release->getReleaseDate() != null;
     }
 }
