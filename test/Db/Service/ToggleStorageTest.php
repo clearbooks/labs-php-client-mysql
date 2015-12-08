@@ -2,6 +2,7 @@
 namespace Clearbooks\Labs\Db\Service;
 
 use Clearbooks\Labs\Bootstrap;
+use Clearbooks\Labs\Db\Entity\Release;
 use Clearbooks\Labs\Db\Entity\Toggle;
 use Clearbooks\Labs\Db\Table\Toggle as ToggleTable;
 use Clearbooks\Labs\LabsTest;
@@ -13,11 +14,19 @@ class ToggleStorageTest extends LabsTest
      */
     private $toggleStorage;
 
+    /**
+     * @var ReleaseStorage
+     */
+    private $releaseStorage;
+
     public function setUp()
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
                                         ->get( ToggleStorage::class );
+
+        $this->releaseStorage = Bootstrap::getInstance()->getDIContainer()
+                                         ->get( ReleaseStorage::class );
     }
 
     /**
@@ -25,10 +34,14 @@ class ToggleStorageTest extends LabsTest
      */
     public function GivenAToggle_WhenRetrievingToggleById_ToggleDataReturns()
     {
+        $release = new Release();
+        $release->setName( "test release" );
+        $releaseId = $this->releaseStorage->insertRelease( $release );
+
         $toggle = new Toggle();
         $toggle->setName( "test toggle" );
         $toggle->setType( ToggleTable::TYPE_SIMPLE );
-        $toggle->setReleaseId( 1 );
+        $toggle->setReleaseId( $releaseId );
 
         $toggleId = $this->toggleStorage->insertToggle( $toggle );
 
@@ -46,10 +59,14 @@ class ToggleStorageTest extends LabsTest
      */
     public function GivenAToggle_WhenRetrievingToggleByName_ToggleDataReturns()
     {
+        $release = new Release();
+        $release->setName( "test release" );
+        $releaseId = $this->releaseStorage->insertRelease( $release );
+
         $toggle = new Toggle();
         $toggle->setName( "test toggle" );
         $toggle->setType( ToggleTable::TYPE_SIMPLE );
-        $toggle->setReleaseId( 1 );
+        $toggle->setReleaseId( $releaseId );
 
         $toggleId = $this->toggleStorage->insertToggle( $toggle );
 
