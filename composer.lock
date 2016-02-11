@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "428e03cc14772ff021ec1d8d3994dad9",
-    "content-hash": "0af4ee4d6895faeb4dff66ebb3d476e5",
+    "hash": "85e17752d348ef50a2eb91b27c4c341d",
+    "content-hash": "04efb607eac9d99b1ee3e0980b835137",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "fea39e0bc59ac58f81912d653e5e46374989591b"
+                "reference": "b13fa0b3769ec8b86239455405d85fa2fee4bd90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/fea39e0bc59ac58f81912d653e5e46374989591b",
-                "reference": "fea39e0bc59ac58f81912d653e5e46374989591b",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/b13fa0b3769ec8b86239455405d85fa2fee4bd90",
+                "reference": "b13fa0b3769ec8b86239455405d85fa2fee4bd90",
                 "shasum": ""
             },
             "require-dev": {
@@ -45,10 +45,10 @@
             ],
             "description": "Sensible releases",
             "support": {
-                "source": "https://github.com/clearbooks/labs-php-client/tree/1.1.0",
+                "source": "https://github.com/clearbooks/labs-php-client/tree/1.2.0",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2015-12-08 12:49:51"
+            "time": "2016-02-10 11:13:12"
         },
         {
             "name": "clearbooks/labs-schema",
