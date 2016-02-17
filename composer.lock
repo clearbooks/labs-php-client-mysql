@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "85e17752d348ef50a2eb91b27c4c341d",
-    "content-hash": "04efb607eac9d99b1ee3e0980b835137",
+    "hash": "401c7d9af6eddfbde94be7dfba863020",
+    "content-hash": "bdbd30b9cb8eb562d192cf5d81d496c3",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
-            "version": "1.2.0",
+            "version": "dev-DEV-7146-segments",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "b13fa0b3769ec8b86239455405d85fa2fee4bd90"
+                "reference": "ee8ce8097d0680ce2400d5b256a38536f0a792b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/b13fa0b3769ec8b86239455405d85fa2fee4bd90",
-                "reference": "b13fa0b3769ec8b86239455405d85fa2fee4bd90",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/ee8ce8097d0680ce2400d5b256a38536f0a792b2",
+                "reference": "ee8ce8097d0680ce2400d5b256a38536f0a792b2",
                 "shasum": ""
             },
             "require-dev": {
@@ -45,23 +45,23 @@
             ],
             "description": "Sensible releases",
             "support": {
-                "source": "https://github.com/clearbooks/labs-php-client/tree/1.2.0",
+                "source": "https://github.com/clearbooks/labs-php-client/tree/DEV-7146-segments",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2016-02-10 11:13:12"
+            "time": "2016-02-17 11:35:06"
         },
         {
             "name": "clearbooks/labs-schema",
-            "version": "1.0.0",
+            "version": "dev-DEV-7114-segments-schema",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-schema.git",
-                "reference": "1b489b82a1b775318a632fe9c0fdd1090a685f24"
+                "reference": "e24544fac5060bc08866dc5c6f3811b8207926c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-schema/zipball/1b489b82a1b775318a632fe9c0fdd1090a685f24",
-                "reference": "1b489b82a1b775318a632fe9c0fdd1090a685f24",
+                "url": "https://api.github.com/repos/clearbooks/labs-schema/zipball/e24544fac5060bc08866dc5c6f3811b8207926c2",
+                "reference": "e24544fac5060bc08866dc5c6f3811b8207926c2",
                 "shasum": ""
             },
             "type": "library",
@@ -76,10 +76,10 @@
             ],
             "description": "DB schema for Labs",
             "support": {
-                "source": "https://github.com/clearbooks/labs-schema/tree/master",
+                "source": "https://github.com/clearbooks/labs-schema/tree/DEV-7114-segments-schema",
                 "issues": "https://github.com/clearbooks/labs-schema/issues"
             },
-            "time": "2015-10-14 08:19:26"
+            "time": "2016-02-17 14:16:27"
         },
         {
             "name": "container-interop/container-interop",
@@ -1822,7 +1822,10 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "clearbooks/labs-schema": 20,
+        "clearbooks/labs-php-client": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
