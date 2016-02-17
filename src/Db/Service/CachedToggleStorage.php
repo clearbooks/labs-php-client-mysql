@@ -31,6 +31,11 @@ class CachedToggleStorage implements ToggleStorageOperations
     private $toggleUserPolicyMap = [ ];
 
     /**
+     * @var array
+     */
+    private $toggleSegmentPolicyMap = [ ];
+
+    /**
      * @param ToggleStorageOperations $toggleStorage
      */
     public function __construct( ToggleStorageOperations $toggleStorage )
@@ -98,5 +103,23 @@ class CachedToggleStorage implements ToggleStorageOperations
         }
 
         return $this->toggleUserPolicyMap[$toggleName][$userId];
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $segmentId
+     * @return bool|null
+     */
+    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    {
+        if ( !isset( $this->toggleSegmentPolicyMap[$toggleName] ) ) {
+            $this->toggleSegmentPolicyMap[$toggleName] = [ ];
+        }
+
+        if ( !isset( $this->toggleSegmentPolicyMap[$toggleName][$segmentId] ) ) {
+            $this->toggleSegmentPolicyMap[$toggleName][$segmentId] = $this->toggleStorage->getSegmentPolicyOfToggle( $toggleName, $segmentId );
+        }
+
+        return $this->toggleSegmentPolicyMap[$toggleName][$segmentId];
     }
 }

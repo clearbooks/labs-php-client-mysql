@@ -8,11 +8,6 @@ class ToggleStorageSpy implements ToggleStorageOperations
     /**
      * @var int
      */
-    private $getGroupPolicyOfToggleCallCounter = 0;
-
-    /**
-     * @var int
-     */
     private $getToggleByIdCallCounter = 0;
 
     /**
@@ -26,15 +21,14 @@ class ToggleStorageSpy implements ToggleStorageOperations
     private $getUserPolicyOfToggleCallCounter = 0;
 
     /**
-     * @param string $toggleName
-     * @param string $groupId
-     * @return bool|null
+     * @var int
      */
-    public function getGroupPolicyOfToggle( $toggleName, $groupId )
-    {
-        ++$this->getGroupPolicyOfToggleCallCounter;
-        return false;
-    }
+    private $getGroupPolicyOfToggleCallCounter = 0;
+
+    /**
+     * @var int
+     */
+    private $getSegmentPolicyOfToggleCallCounter = 0;
 
     /**
      * @param int $toggleId
@@ -68,11 +62,25 @@ class ToggleStorageSpy implements ToggleStorageOperations
     }
 
     /**
-     * @return int
+     * @param string $toggleName
+     * @param string $groupId
+     * @return bool|null
      */
-    public function getGetGroupPolicyOfToggleCallCounter()
+    public function getGroupPolicyOfToggle( $toggleName, $groupId )
     {
-        return $this->getGroupPolicyOfToggleCallCounter;
+        ++$this->getGroupPolicyOfToggleCallCounter;
+        return false;
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $segmentId
+     * @return bool|null
+     */
+    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    {
+        ++$this->getSegmentPolicyOfToggleCallCounter;
+        return false;
     }
 
     /**
@@ -97,5 +105,21 @@ class ToggleStorageSpy implements ToggleStorageOperations
     public function getGetUserPolicyOfToggleCallCounter()
     {
         return $this->getUserPolicyOfToggleCallCounter;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGetGroupPolicyOfToggleCallCounter()
+    {
+        return $this->getGroupPolicyOfToggleCallCounter;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGetSegmentPolicyOfToggleCallCounter()
+    {
+        return $this->getSegmentPolicyOfToggleCallCounter;
     }
 }

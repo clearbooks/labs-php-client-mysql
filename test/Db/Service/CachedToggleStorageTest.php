@@ -35,6 +35,9 @@ class CachedToggleStorageTest extends LabsTest
             $cachedToggleStorage->getGroupPolicyOfToggle( "test toggle", "1" );
             $this->assertEquals( 1, $toggleStorageSpy->getGetGroupPolicyOfToggleCallCounter() );
 
+            $cachedToggleStorage->getSegmentPolicyOfToggle( "test toggle", "1" );
+            $this->assertEquals( 1, $toggleStorageSpy->getGetSegmentPolicyOfToggleCallCounter() );
+
             $cachedToggleStorage->getUserPolicyOfToggle( "test toggle", "1" );
             $this->assertEquals( 1, $toggleStorageSpy->getGetUserPolicyOfToggleCallCounter() );
 
@@ -53,6 +56,7 @@ class CachedToggleStorageTest extends LabsTest
     {
         $this->assertNull( $this->cachedToggleStorage->getGroupPolicyOfToggle( "test toggle", "1" ) );
         $this->assertNull( $this->cachedToggleStorage->getUserPolicyOfToggle( "test toggle", "1" ) );
+        $this->assertNull( $this->cachedToggleStorage->getSegmentPolicyOfToggle( "test toggle", "1" ) );
         $this->assertNull( $this->cachedToggleStorage->getToggleByName( "test toggle" ) );
         $this->assertNull( $this->cachedToggleStorage->getToggleById( 1 ) );
     }
@@ -185,5 +189,36 @@ class CachedToggleStorageTest extends LabsTest
         $toggleEnabledByUser = $this->cachedToggleStorage->getUserPolicyOfToggle( $toggleName, $userId );
 
         $this->assertTrue( $toggleEnabledByUser );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenAToggleExistsAndEnabledForSegment_WhenCallingGetSegmentPolicyOfToggle_ReturnsEnabledState()
+    {
+        $toggleName = "test toggle";
+        $segmentId = "1";
+
+        $this->toggleStorageMock->setToggleSegmentPolicyMap( [ "test toggle" => [ $segmentId => true ] ] );
+        $toggleEnabledBySegment = $this->cachedToggleStorage->getSegmentPolicyOfToggle( $toggleName, $segmentId );
+
+        $this->assertTrue( $toggleEnabledBySegment );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenAToggleExistsAndEnabledForSegment_WhenCallingGetSegmentPolicyOfToggleTwiceAndChangingEnabledStateToFalseBetweenCalls_ReturnsEnabledState()
+    {
+        $toggleName = "test toggle";
+        $segmentId = "1";
+
+        $this->toggleStorageMock->setToggleSegmentPolicyMap( [ "test toggle" => [ $segmentId => true ] ] );
+        $this->cachedToggleStorage->getSegmentPolicyOfToggle( $toggleName, $segmentId );
+
+        $this->toggleStorageMock->setToggleSegmentPolicyMap( [ "test toggle" => [ $segmentId => false ] ] );
+        $toggleEnabledBySegment = $this->cachedToggleStorage->getSegmentPolicyOfToggle( $toggleName, $segmentId );
+
+        $this->assertTrue( $toggleEnabledBySegment );
     }
 }
