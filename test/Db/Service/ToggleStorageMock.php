@@ -18,12 +18,17 @@ class ToggleStorageMock implements ToggleStorageOperations
     /**
      * @var array
      */
+    private $toggleUserPolicyMap = [ ];
+
+    /**
+     * @var array
+     */
     private $toggleGroupPolicyMap = [ ];
 
     /**
      * @var array
      */
-    private $toggleUserPolicyMap = [ ];
+    private $toggleSegmentPolicyMap = [ ];
 
     /**
      * @param array $toggleIdToToggleMap
@@ -42,14 +47,6 @@ class ToggleStorageMock implements ToggleStorageOperations
     }
 
     /**
-     * @param array $toggleGroupPolicyMap
-     */
-    public function setToggleGroupPolicyMap( array $toggleGroupPolicyMap )
-    {
-        $this->toggleGroupPolicyMap = $toggleGroupPolicyMap;
-    }
-
-    /**
      * @param array $toggleUserPolicyMap
      */
     public function setToggleUserPolicyMap( array $toggleUserPolicyMap )
@@ -58,13 +55,19 @@ class ToggleStorageMock implements ToggleStorageOperations
     }
 
     /**
-     * @param string $toggleName
-     * @param string $groupId
-     * @return bool|null
+     * @param array $toggleGroupPolicyMap
      */
-    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    public function setToggleGroupPolicyMap( array $toggleGroupPolicyMap )
     {
-        return isset( $this->toggleGroupPolicyMap[$toggleName][$groupId] ) ? $this->toggleGroupPolicyMap[$toggleName][$groupId] : null;
+        $this->toggleGroupPolicyMap = $toggleGroupPolicyMap;
+    }
+
+    /**
+     * @param array $toggleSegmentPolicyMap
+     */
+    public function setToggleSegmentPolicyMap( array $toggleSegmentPolicyMap )
+    {
+        $this->toggleSegmentPolicyMap = $toggleSegmentPolicyMap;
     }
 
     /**
@@ -93,5 +96,25 @@ class ToggleStorageMock implements ToggleStorageOperations
     public function getUserPolicyOfToggle( $toggleName, $userId )
     {
         return isset( $this->toggleUserPolicyMap[$toggleName][$userId] ) ? $this->toggleUserPolicyMap[$toggleName][$userId] : null;
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $groupId
+     * @return bool|null
+     */
+    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    {
+        return isset( $this->toggleGroupPolicyMap[$toggleName][$groupId] ) ? $this->toggleGroupPolicyMap[$toggleName][$groupId] : null;
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $segmentId
+     * @return bool|null
+     */
+    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    {
+        return isset( $this->toggleSegmentPolicyMap[$toggleName][$segmentId] ) ? $this->toggleSegmentPolicyMap[$toggleName][$segmentId] : null;
     }
 }

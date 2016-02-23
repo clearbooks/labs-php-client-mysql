@@ -4,11 +4,16 @@ namespace Clearbooks\Labs\Db\Service;
 use Clearbooks\Labs\Db\Table\Toggle as ToggleTable;
 use Clearbooks\Labs\Db\Table\UserPolicy as UserPolicyTable;
 use Clearbooks\Labs\Db\Table\GroupPolicy as GroupPolicyTable;
+use Clearbooks\Labs\Db\Table\SegmentPolicy as SegmentPolicyTable;
 use Clearbooks\Labs\Db\Entity\Toggle;
 use Doctrine\DBAL\Connection;
 
 class ToggleStorage implements ToggleStorageOperations
 {
+    const IDENTITY_TYPE_USER = "user";
+    const IDENTITY_TYPE_GROUP = "group";
+    const IDENTITY_TYPE_SEGMENT = "segment";
+
     /**
      * @var Connection
      */
@@ -30,18 +35,25 @@ class ToggleStorage implements ToggleStorageOperations
     private $groupPolicyTable;
 
     /**
-     * @param Connection       $connection
-     * @param ToggleTable      $toggleTable
-     * @param UserPolicyTable  $userPolicyTable
+     * @var SegmentPolicyTable
+     */
+    private $segmentPolicyTable;
+
+    /**
+     * @param Connection $connection
+     * @param ToggleTable $toggleTable
+     * @param UserPolicyTable $userPolicyTable
      * @param GroupPolicyTable $groupPolicyTable
+     * @param SegmentPolicyTable $segmentPolicyTable
      */
     public function __construct( Connection $connection, ToggleTable $toggleTable, UserPolicyTable $userPolicyTable,
-                                 GroupPolicyTable $groupPolicyTable )
+                                 GroupPolicyTable $groupPolicyTable, SegmentPolicyTable $segmentPolicyTable )
     {
         $this->connection = $connection;
         $this->toggleTable = $toggleTable;
         $this->userPolicyTable = $userPolicyTable;
         $this->groupPolicyTable = $groupPolicyTable;
+        $this->segmentPolicyTable = $segmentPolicyTable;
     }
 
     /**
@@ -94,7 +106,7 @@ class ToggleStorage implements ToggleStorageOperations
      */
     public function setUserPolicy( $toggleId, $userId, $policy )
     {
-        $this->setTogglePolicy( $toggleId, $userId, $policy, "user" );
+        $this->setTogglePolicy( $toggleId, $userId, $policy, self::IDENTITY_TYPE_USER );
     }
 
     /**
@@ -104,7 +116,17 @@ class ToggleStorage implements ToggleStorageOperations
      */
     public function setGroupPolicy( $toggleId, $groupId, $policy )
     {
-        $this->setTogglePolicy( $toggleId, $groupId, $policy, "group" );
+        $this->setTogglePolicy( $toggleId, $groupId, $policy, self::IDENTITY_TYPE_GROUP );
+    }
+
+    /**
+     * @param int       $toggleId
+     * @param string    $groupId
+     * @param bool|null $policy
+     */
+    public function setSegmentPolicy( $toggleId, $groupId, $policy )
+    {
+        $this->setTogglePolicy( $toggleId, $groupId, $policy, self::IDENTITY_TYPE_SEGMENT );
     }
 
     /**
@@ -171,7 +193,7 @@ class ToggleStorage implements ToggleStorageOperations
      */
     public function getUserPolicyOfToggle( $toggleName, $userId )
     {
-        return $this->getPolicyOfToggleByName( $toggleName, $userId, "user" );
+        return $this->getPolicyOfToggleByName( $toggleName, $userId, self::IDENTITY_TYPE_USER );
     }
 
     /**
@@ -181,7 +203,17 @@ class ToggleStorage implements ToggleStorageOperations
      */
     public function getGroupPolicyOfToggle( $toggleName, $groupId )
     {
-        return $this->getPolicyOfToggleByName( $toggleName, $groupId, "group" );
+        return $this->getPolicyOfToggleByName( $toggleName, $groupId, self::IDENTITY_TYPE_GROUP );
+    }
+
+    /**
+     * @param string $toggleName
+     * @param string $segmentId
+     * @return bool|null
+     */
+    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    {
+        return $this->getPolicyOfToggleByName( $toggleName, $segmentId, self::IDENTITY_TYPE_SEGMENT );
     }
 
     /**
@@ -242,8 +274,11 @@ class ToggleStorage implements ToggleStorageOperations
     private function getPolicyTableByTypeOfIdentity( $typeOfIdentity )
     {
         switch ( $typeOfIdentity ) {
-            case "group":
+            case self::IDENTITY_TYPE_GROUP:
                 return (string)$this->groupPolicyTable;
+
+            case self::IDENTITY_TYPE_SEGMENT:
+                return (string)$this->segmentPolicyTable;
 
             default:
                 return (string)$this->userPolicyTable;
@@ -257,8 +292,11 @@ class ToggleStorage implements ToggleStorageOperations
     private function getIdentityFieldByTypeOfIdentity( $typeOfIdentity )
     {
         switch ( $typeOfIdentity ) {
-            case "group":
+            case self::IDENTITY_TYPE_GROUP:
                 return "group_id";
+
+            case self::IDENTITY_TYPE_SEGMENT:
+                return "segment_id";
 
             default:
                 return "user_id";
