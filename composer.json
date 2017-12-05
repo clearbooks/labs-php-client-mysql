@@ -12,7 +12,7 @@
     "psr-4": {"Clearbooks\\Labs\\": ["src/", "test/"]}
   },
   "require":{
-    "clearbooks/labs-schema": "1.1.1",
+    "clearbooks/labs-schema": "1.1.2",
     "doctrine/dbal": "2.5.1",
     "php-di/php-di": "^5.0",
     "clearbooks/labs-php-client": "^1.4.1",
