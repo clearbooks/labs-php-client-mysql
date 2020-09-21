@@ -13,7 +13,7 @@ abstract class TogglePolicyGatewayTest extends LabsTest
      */
     protected $toggleStorage;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()

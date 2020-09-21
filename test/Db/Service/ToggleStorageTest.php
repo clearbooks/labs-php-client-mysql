@@ -19,7 +19,7 @@ class ToggleStorageTest extends LabsTest
      */
     private $releaseStorage;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()

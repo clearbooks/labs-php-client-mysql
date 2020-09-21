@@ -1,7 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
-class CamelCaseMapperEntityTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CamelCaseMapperEntityTest extends TestCase
 {
     /**
      * @test

@@ -12,7 +12,7 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
      */
     private $userPolicyGateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->userPolicyGateway = Bootstrap::getInstance()->getDIContainer()
@@ -33,6 +33,7 @@ class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function GivenNoError_On_getPolicyOfToggleByName()
     {

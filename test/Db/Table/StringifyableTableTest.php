@@ -1,7 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Db\Table;
 
-class StringifyableTableTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class StringifyableTableTest extends TestCase
 {
     /**
      * @test

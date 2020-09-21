@@ -10,7 +10,7 @@ class CurrentDateTimeProviderTest extends LabsTest
      */
     private $currentDateTimeProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->currentDateTimeProvider = new CurrentDateTimeProvider();
@@ -21,6 +21,9 @@ class CurrentDateTimeProviderTest extends LabsTest
      */
     public function WhenRetrievingDateTime_ReturnsCurrentDateTime()
     {
-        $this->assertEquals( new \DateTime(), $this->currentDateTimeProvider->getDateTime() );
+        $this->assertEquals(
+            (new \DateTime())->format( "Y-m-d H:i:s" ),
+            $this->currentDateTimeProvider->getDateTime()->format( "Y-m-d H:i:s" )
+        );
     }
 }

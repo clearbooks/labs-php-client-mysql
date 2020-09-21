@@ -2,15 +2,16 @@
 namespace Clearbooks\Labs\Db;
 
 use Clearbooks\Labs\Bootstrap;
+use PHPUnit\Framework\TestCase;
 
-class DoctrineConnectionProviderTest extends \PHPUnit_Framework_TestCase
+class DoctrineConnectionProviderTest extends TestCase
 {
     /**
      * @var DoctrineConnectionProvider
      */
     private $doctrineConnectionProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->doctrineConnectionProvider = Bootstrap::getInstance()->getDIContainer()

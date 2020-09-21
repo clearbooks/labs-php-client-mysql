@@ -12,7 +12,7 @@ class ReleaseStorageTest extends LabsTest
      */
     private $releaseStorage;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->releaseStorage = Bootstrap::getInstance()->getDIContainer()

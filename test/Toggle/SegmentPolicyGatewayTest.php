@@ -11,7 +11,7 @@ class SegmentPolicyGatewayTest extends TogglePolicyGatewayTest
      */
     private $segmentPolicyGateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->segmentPolicyGateway = Bootstrap::getInstance()->getDIContainer()

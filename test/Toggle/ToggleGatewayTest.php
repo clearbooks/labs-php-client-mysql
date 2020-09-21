@@ -34,7 +34,7 @@ class ToggleGatewayTest extends LabsTest
      */
     private $dateTimeProvider;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->toggleStorage = Bootstrap::getInstance()->getDIContainer()
