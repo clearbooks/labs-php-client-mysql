@@ -4,26 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cbf5b1d85d89097184f6cab70da1611",
+    "content-hash": "d456e8d704bd9b9fba75554a27217c96",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
-            "version": "1.4.1",
+            "version": "dev-ADHOC-7858-php-7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "889f685a12bb413f0a2dda592e7c991a877ba73f"
+                "reference": "fd1aece72f1d39ff80afbcce3f8cdfef905bce38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/889f685a12bb413f0a2dda592e7c991a877ba73f",
-                "reference": "889f685a12bb413f0a2dda592e7c991a877ba73f",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/fd1aece72f1d39ff80afbcce3f8cdfef905bce38",
+                "reference": "fd1aece72f1d39ff80afbcce3f8cdfef905bce38",
                 "shasum": ""
             },
+            "require": {
+                "php": ">=7.2"
+            },
             "require-dev": {
-                "behat/behat": "^3.1",
+                "behat/behat": "^3.7",
                 "codeclimate/php-test-reporter": "dev-master",
-                "phpunit/phpunit": "4.7.*"
+                "phpunit/phpunit": "^8"
             },
             "type": "library",
             "autoload": {
@@ -45,10 +48,10 @@
             ],
             "description": "Sensible releases",
             "support": {
-                "source": "https://github.com/clearbooks/labs-php-client/tree/1.4.1",
+                "source": "https://github.com/clearbooks/labs-php-client/tree/ADHOC-7858-php-7.4",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2016-06-09T11:13:18+00:00"
+            "time": "2020-09-21T15:30:51+00:00"
         },
         {
             "name": "clearbooks/labs-schema",
@@ -2414,7 +2417,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "clearbooks/labs-php-client": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
