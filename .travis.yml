@@ -7,7 +7,7 @@ php:
 services:
   - mysql
 
-install: composer install --dev
+install: composer install
 
 before_script:
   - cp config/db-config.sample.php config/db-config.php
