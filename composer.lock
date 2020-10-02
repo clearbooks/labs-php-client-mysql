@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d456e8d704bd9b9fba75554a27217c96",
+    "content-hash": "8b088bb556b89adc85fcbb3618e3b838",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
-            "version": "dev-ADHOC-7858-php-7.4",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "fd1aece72f1d39ff80afbcce3f8cdfef905bce38"
+                "reference": "65b6b4af7f3823ab33447e53c201b09be7cc3640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/fd1aece72f1d39ff80afbcce3f8cdfef905bce38",
-                "reference": "fd1aece72f1d39ff80afbcce3f8cdfef905bce38",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/65b6b4af7f3823ab33447e53c201b09be7cc3640",
+                "reference": "65b6b4af7f3823ab33447e53c201b09be7cc3640",
                 "shasum": ""
             },
             "require": {
@@ -48,10 +48,10 @@
             ],
             "description": "Sensible releases",
             "support": {
-                "source": "https://github.com/clearbooks/labs-php-client/tree/ADHOC-7858-php-7.4",
+                "source": "https://github.com/clearbooks/labs-php-client/tree/2.0.0",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2020-09-21T15:30:51+00:00"
+            "time": "2020-10-02T08:32:44+00:00"
         },
         {
             "name": "clearbooks/labs-schema",
@@ -2417,9 +2417,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "clearbooks/labs-php-client": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
