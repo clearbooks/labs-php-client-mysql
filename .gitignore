@@ -3,3 +3,4 @@ composer.phar
 /vendor/
 config/db-config.php
 build
+.phpunit.result.cache

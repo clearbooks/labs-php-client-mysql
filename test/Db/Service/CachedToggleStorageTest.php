@@ -16,7 +16,7 @@ class CachedToggleStorageTest extends LabsTest
      */
     private $toggleStorageMock;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->toggleStorageMock = new ToggleStorageMock();

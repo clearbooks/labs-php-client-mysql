@@ -2,11 +2,13 @@
 namespace Clearbooks\Labs;
 
 use Clearbooks\Labs\Db\DbDIDefinitionProvider;
+use PHPUnit\Framework\TestCase;
 
-class BootstrapTest extends \PHPUnit_Framework_TestCase
+class BootstrapTest extends TestCase
 {
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function GivenAnUninitializedBootstrapInstance_WhenCallingInit_NoExceptionIsThrown()
     {

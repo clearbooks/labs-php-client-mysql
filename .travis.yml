@@ -1,8 +1,13 @@
 language: php
 php:
-  - 7.0
+  - 7.2
+  - 7.3
+  - 7.4
 
-install: composer install --dev
+services:
+  - mysql
+
+install: composer install
 
 before_script:
   - cp config/db-config.sample.php config/db-config.php

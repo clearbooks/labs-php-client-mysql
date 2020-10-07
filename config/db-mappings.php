@@ -14,10 +14,11 @@ use Clearbooks\Labs\Toggle\UseCase\SegmentPolicyRetriever;
 use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
 use Clearbooks\Labs\Toggle\UseCase\UserAutoSubscriptionChecker;
 use Clearbooks\Labs\Toggle\UseCase\UserPolicyRetriever;
+use DI\Container;
 use Doctrine\DBAL\Connection;
 
 return [
-        ConnectionDetails::class    => function ( \DI\Container $container ) {
+        ConnectionDetails::class    => function ( Container $container ) {
             return new MysqlConnectionDetails(
                     $container->get( "db.host" ),
                     $container->get( "db.port" ),
@@ -27,16 +28,16 @@ return [
                     "utf8"
             );
         },
-        Connection::class           => function ( \DI\Container $container ) {
+        Connection::class           => function ( Container $container ) {
             /** @var DoctrineConnectionProvider $connectionProvider */
             $connectionProvider = $container->get( DoctrineConnectionProvider::class );
             return $connectionProvider->getConnection();
         },
-        ToggleRetriever::class             => DI\object( ToggleStorage::class ),
-        UserPolicyRetriever::class         => DI\object( ToggleStorage::class ),
-        GroupPolicyRetriever::class        => DI\object( ToggleStorage::class ),
-        SegmentPolicyRetriever::class      => DI\object( ToggleStorage::class ),
-        ReleaseRetriever::class            => DI\object( ReleaseStorage::class ),
-        UserAutosubscriptionChecker::class => DI\object( AutoSubscribersStorage::class ),
-        DateTimeProvider::class            => DI\object( CurrentDateTimeProvider::class )
+        ToggleRetriever::class             => DI\autowire( ToggleStorage::class ),
+        UserPolicyRetriever::class         => DI\autowire( ToggleStorage::class ),
+        GroupPolicyRetriever::class        => DI\autowire( ToggleStorage::class ),
+        SegmentPolicyRetriever::class      => DI\autowire( ToggleStorage::class ),
+        ReleaseRetriever::class            => DI\autowire( ReleaseStorage::class ),
+        UserAutosubscriptionChecker::class => DI\autowire( AutoSubscribersStorage::class ),
+        DateTimeProvider::class            => DI\autowire( CurrentDateTimeProvider::class )
 ];

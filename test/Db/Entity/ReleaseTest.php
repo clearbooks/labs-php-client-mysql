@@ -1,7 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
-class ReleaseTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ReleaseTest extends TestCase
 {
     /**
      * @test

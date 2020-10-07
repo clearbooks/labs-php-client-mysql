@@ -16,7 +16,7 @@ class Release extends CamelCaseMapperEntity
     /**
      * @var string
      */
-    protected $info;
+    protected $info = "";
 
     /**
      * @var int

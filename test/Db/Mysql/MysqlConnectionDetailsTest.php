@@ -1,7 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Db\Mysql;
 
-class MysqlConnectionDetailsTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class MysqlConnectionDetailsTest extends TestCase
 {
     /**
      * @test

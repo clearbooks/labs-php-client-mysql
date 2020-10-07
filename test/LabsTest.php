@@ -2,15 +2,16 @@
 namespace Clearbooks\Labs;
 
 use Doctrine\DBAL\Connection;
+use PHPUnit\Framework\TestCase;
 
-abstract class LabsTest extends \PHPUnit_Framework_TestCase
+abstract class LabsTest extends TestCase
 {
     /**
      * @var Connection
      */
     protected $connection;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->connection = Bootstrap::getInstance()->getDIContainer()
@@ -20,7 +21,7 @@ abstract class LabsTest extends \PHPUnit_Framework_TestCase
         $this->connection->setRollbackOnly();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         $this->connection->rollBack();

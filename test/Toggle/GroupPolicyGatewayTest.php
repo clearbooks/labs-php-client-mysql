@@ -11,7 +11,7 @@ class GroupPolicyGatewayTest extends TogglePolicyGatewayTest
      */
     private $groupPolicyGateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->groupPolicyGateway = Bootstrap::getInstance()->getDIContainer()

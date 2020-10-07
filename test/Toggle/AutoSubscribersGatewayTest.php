@@ -18,7 +18,7 @@ class AutoSubscribersGatewayTest extends LabsTest
      */
     private $autoSubscribersGateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->autoSubscribersStorage = Bootstrap::getInstance()->getDIContainer()

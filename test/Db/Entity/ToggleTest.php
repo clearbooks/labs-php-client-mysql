@@ -1,7 +1,9 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
-class ToggleTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ToggleTest extends TestCase
 {
     /**
      * @test
