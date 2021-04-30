@@ -2,9 +2,9 @@
 namespace Clearbooks\Labs\Db\Service;
 
 use Clearbooks\Labs\Db\Entity\Toggle;
-use Clearbooks\Labs\LabsTest;
+use PHPUnit\Framework\TestCase;
 
-class CachedToggleStorageTest extends LabsTest
+class CachedToggleStorageTest extends TestCase
 {
     /**
      * @var CachedToggleStorage
@@ -97,6 +97,17 @@ class CachedToggleStorageTest extends LabsTest
     /**
      * @test
      */
+    public function GivenNonExistingToggle_WhenCallingGetToggleByIdTwice_ToggleStorageIsCalledOnlyOnce()
+    {
+        $this->cachedToggleStorage->getToggleById( 1 );
+        $this->cachedToggleStorage->getToggleById( 1 );
+
+        $this->assertEquals( [ [ "getToggleById", 1 ] ], $this->toggleStorageMock->getCallHistory() );
+    }
+
+    /**
+     * @test
+     */
     public function GivenAToggleExists_WhenCallingGetToggleByName_ReturnsToggle()
     {
         $toggle = new Toggle();
@@ -127,6 +138,17 @@ class CachedToggleStorageTest extends LabsTest
         $retrievedToggle = $this->cachedToggleStorage->getToggleByName( $toggle->getName() );
 
         $this->assertSame( $toggle, $retrievedToggle );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNonExistingToggle_WhenCallingGetToggleByNameTwice_ToggleStorageIsCalledOnlyOnce()
+    {
+        $this->cachedToggleStorage->getToggleByName( "test" );
+        $this->cachedToggleStorage->getToggleByName( "test" );
+
+        $this->assertEquals( [ [ "getToggleByName", "test" ] ], $this->toggleStorageMock->getCallHistory() );
     }
 
     /**
@@ -163,7 +185,18 @@ class CachedToggleStorageTest extends LabsTest
     /**
      * @test
      */
-    public function GivenAToggleExistsAndEnabledForUser_WhenCallingGetToggleByName_ReturnsEnabledState()
+    public function GivenNonExistingToggle_WhenCallingGetGroupPolicyOfToggleTwice_ToggleStorageIsCalledOnlyOnce()
+    {
+        $this->cachedToggleStorage->getGroupPolicyOfToggle( "test", 1 );
+        $this->cachedToggleStorage->getGroupPolicyOfToggle( "test", 1 );
+
+        $this->assertEquals( [ [ "getGroupPolicyOfToggle", "test", 1 ] ], $this->toggleStorageMock->getCallHistory() );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenAToggleExistsAndEnabledForUser_WhenCallingGetUserPolicyOfToggle_ReturnsEnabledState()
     {
         $toggleName = "test toggle";
         $userId = "1";
@@ -177,7 +210,7 @@ class CachedToggleStorageTest extends LabsTest
     /**
      * @test
      */
-    public function GivenAToggleExistsAndEnabledForGroup_WhenCallingGetToggleByNameTwiceAndChangingEnabledStateToFalseBetweenCalls_ReturnsEnabledState()
+    public function GivenAToggleExistsAndEnabledForGroup_WhenCallingGetUserPolicyOfToggleTwiceAndChangingEnabledStateToFalseBetweenCalls_ReturnsEnabledState()
     {
         $toggleName = "test toggle";
         $userId = "1";
@@ -189,6 +222,17 @@ class CachedToggleStorageTest extends LabsTest
         $toggleEnabledByUser = $this->cachedToggleStorage->getUserPolicyOfToggle( $toggleName, $userId );
 
         $this->assertTrue( $toggleEnabledByUser );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNonExistingToggle_WhenCallingGetUserPolicyOfToggleTwice_ToggleStorageIsCalledOnlyOnce()
+    {
+        $this->cachedToggleStorage->getUserPolicyOfToggle( "test", 1 );
+        $this->cachedToggleStorage->getUserPolicyOfToggle( "test", 1 );
+
+        $this->assertEquals( [ [ "getUserPolicyOfToggle", "test", 1 ] ], $this->toggleStorageMock->getCallHistory() );
     }
 
     /**
@@ -220,5 +264,16 @@ class CachedToggleStorageTest extends LabsTest
         $toggleEnabledBySegment = $this->cachedToggleStorage->getSegmentPolicyOfToggle( $toggleName, $segmentId );
 
         $this->assertTrue( $toggleEnabledBySegment );
+    }
+
+    /**
+     * @test
+     */
+    public function GivenNonExistingToggle_WhenCallingGetSegmentPolicyOfToggleTwice_ToggleStorageIsCalledOnlyOnce()
+    {
+        $this->cachedToggleStorage->getSegmentPolicyOfToggle( "test", 1 );
+        $this->cachedToggleStorage->getSegmentPolicyOfToggle( "test", 1 );
+
+        $this->assertEquals( [ [ "getSegmentPolicyOfToggle", "test", 1 ] ], $this->toggleStorageMock->getCallHistory() );
     }
 }
