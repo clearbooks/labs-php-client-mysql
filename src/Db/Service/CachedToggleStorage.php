@@ -49,7 +49,7 @@ class CachedToggleStorage implements ToggleStorageOperations
      */
     public function getToggleById( $toggleId )
     {
-        if ( !isset( $this->toggleIdToToggleMap[$toggleId] ) ) {
+        if ( !array_key_exists( $toggleId, $this->toggleIdToToggleMap ) ) {
             $this->toggleIdToToggleMap[$toggleId] = $this->toggleStorage->getToggleById( $toggleId );
         }
 
@@ -62,7 +62,7 @@ class CachedToggleStorage implements ToggleStorageOperations
      */
     public function getToggleByName( $toggleName )
     {
-        if ( !isset( $this->toggleNameToToggleMap[$toggleName] ) ) {
+        if ( !array_key_exists( $toggleName, $this->toggleNameToToggleMap ) ) {
             $this->toggleNameToToggleMap[$toggleName] = $this->toggleStorage->getToggleByName( $toggleName );
         }
 
@@ -80,7 +80,7 @@ class CachedToggleStorage implements ToggleStorageOperations
             $this->toggleGroupPolicyMap[$toggleName] = [ ];
         }
 
-        if ( !isset( $this->toggleGroupPolicyMap[$toggleName][$groupId] ) ) {
+        if ( !array_key_exists( $groupId, $this->toggleGroupPolicyMap[$toggleName] ) ) {
             $this->toggleGroupPolicyMap[$toggleName][$groupId] = $this->toggleStorage->getGroupPolicyOfToggle( $toggleName, $groupId );
         }
 
@@ -98,7 +98,7 @@ class CachedToggleStorage implements ToggleStorageOperations
             $this->toggleUserPolicyMap[$toggleName] = [ ];
         }
 
-        if ( !isset( $this->toggleUserPolicyMap[$toggleName][$userId] ) ) {
+        if ( !array_key_exists( $userId, $this->toggleUserPolicyMap[$toggleName] ) ) {
             $this->toggleUserPolicyMap[$toggleName][$userId] = $this->toggleStorage->getUserPolicyOfToggle( $toggleName, $userId );
         }
 
@@ -116,7 +116,7 @@ class CachedToggleStorage implements ToggleStorageOperations
             $this->toggleSegmentPolicyMap[$toggleName] = [ ];
         }
 
-        if ( !isset( $this->toggleSegmentPolicyMap[$toggleName][$segmentId] ) ) {
+        if ( !array_key_exists( $segmentId, $this->toggleSegmentPolicyMap[$toggleName] ) ) {
             $this->toggleSegmentPolicyMap[$toggleName][$segmentId] = $this->toggleStorage->getSegmentPolicyOfToggle( $toggleName, $segmentId );
         }
 

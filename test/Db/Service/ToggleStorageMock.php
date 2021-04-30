@@ -8,6 +8,11 @@ class ToggleStorageMock implements ToggleStorageOperations
     /**
      * @var array
      */
+    private $callHistory = [];
+
+    /**
+     * @var array
+     */
     private $toggleIdToToggleMap = [ ];
 
     /**
@@ -76,6 +81,7 @@ class ToggleStorageMock implements ToggleStorageOperations
      */
     public function getToggleById( $toggleId )
     {
+        $this->callHistory[] = [ "getToggleById", $toggleId ];
         return isset( $this->toggleIdToToggleMap[$toggleId] ) ? $this->toggleIdToToggleMap[$toggleId] : null;
     }
 
@@ -85,6 +91,7 @@ class ToggleStorageMock implements ToggleStorageOperations
      */
     public function getToggleByName( $toggleName )
     {
+        $this->callHistory[] = [ "getToggleByName", $toggleName ];
         return isset( $this->toggleNameToToggleMap[$toggleName] ) ? $this->toggleNameToToggleMap[$toggleName] : null;
     }
 
@@ -95,6 +102,7 @@ class ToggleStorageMock implements ToggleStorageOperations
      */
     public function getUserPolicyOfToggle( $toggleName, $userId )
     {
+        $this->callHistory[] = [ "getUserPolicyOfToggle", $toggleName, $userId ];
         return isset( $this->toggleUserPolicyMap[$toggleName][$userId] ) ? $this->toggleUserPolicyMap[$toggleName][$userId] : null;
     }
 
@@ -105,6 +113,7 @@ class ToggleStorageMock implements ToggleStorageOperations
      */
     public function getGroupPolicyOfToggle( $toggleName, $groupId )
     {
+        $this->callHistory[] = [ "getGroupPolicyOfToggle", $toggleName, $groupId ];
         return isset( $this->toggleGroupPolicyMap[$toggleName][$groupId] ) ? $this->toggleGroupPolicyMap[$toggleName][$groupId] : null;
     }
 
@@ -115,6 +124,15 @@ class ToggleStorageMock implements ToggleStorageOperations
      */
     public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
     {
+        $this->callHistory[] = [ "getSegmentPolicyOfToggle", $toggleName, $segmentId ];
         return isset( $this->toggleSegmentPolicyMap[$toggleName][$segmentId] ) ? $this->toggleSegmentPolicyMap[$toggleName][$segmentId] : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCallHistory(): array
+    {
+        return $this->callHistory;
     }
 }
