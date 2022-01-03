@@ -8,7 +8,7 @@ class CamelCaseMapperEntityTest extends TestCase
     /**
      * @test
      */
-    public function WhenConstructingCamelCaseMapperEntity_CamelCasedAttributesWillBePopulated()
+    public function WhenConstructingCamelCaseMapperEntity_CamelCasedAttributesWillBePopulated(): void
     {
         $data = [
                 "invalid_property"    => "test1",
@@ -29,7 +29,7 @@ class CamelCaseMapperEntityTest extends TestCase
     /**
      * @test
      */
-    public function GivenEntityHasNoTransientProperties_WhenConvertingEntityBackToArray_ResultingArrayWillMatchTheOriginal()
+    public function GivenEntityHasNoTransientProperties_WhenConvertingEntityBackToArray_ResultingArrayWillMatchTheOriginal(): void
     {
         $data = [
                 "single"              => "test2",
@@ -45,7 +45,7 @@ class CamelCaseMapperEntityTest extends TestCase
     /**
      * @test
      */
-    public function GivenEntityHasTransientProperties_WhenConvertingEntityBackToArray_ResultingArrayWillMatchTheOriginal()
+    public function GivenEntityHasTransientProperties_WhenConvertingEntityBackToArray_ResultingArrayWillMatchTheOriginal(): void
     {
         $data = [
                 "single"              => "test2",
@@ -54,6 +54,7 @@ class CamelCaseMapperEntityTest extends TestCase
         ];
 
         $entity = new SampleEntityWithTransientProperty( $data );
+        $entity->setInvalidProperty( "test" );
 
         $this->assertEquals( $data, $entity->toArray() );
     }

@@ -15,7 +15,6 @@
     "php": ">=7.4",
     "clearbooks/labs-schema": "^1.1.2",
     "clearbooks/labs-php-client": "^2.0.0",
-    "crodas/notoj": "^1.7.0",
     "doctrine/dbal": "^3.2.0",
     "php-di/php-di": "^6.0.5"
   },

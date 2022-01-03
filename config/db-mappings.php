@@ -38,6 +38,6 @@ return [
         GroupPolicyRetriever::class        => DI\autowire( ToggleStorage::class ),
         SegmentPolicyRetriever::class      => DI\autowire( ToggleStorage::class ),
         ReleaseRetriever::class            => DI\autowire( ReleaseStorage::class ),
-        UserAutosubscriptionChecker::class => DI\autowire( AutoSubscribersStorage::class ),
+        UserAutoSubscriptionChecker::class => DI\autowire( AutoSubscribersStorage::class ),
         DateTimeProvider::class            => DI\autowire( CurrentDateTimeProvider::class )
 ];
