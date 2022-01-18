@@ -37,7 +37,7 @@ class AutoSubscribersStorage implements UserAutoSubscriptionChecker
         $queryBuilder->select( "COUNT(user_id) AS cnt" )->from( (string)$this->subscribersTable )->where( "user_id = ?" );
         $queryBuilder->setParameter( 0, $userId );
 
-        $numberOfUserIdRecords = $queryBuilder->execute()->fetchColumn();
+        $numberOfUserIdRecords = $queryBuilder->executeQuery()->fetchOne();
         return $numberOfUserIdRecords > 0;
     }
 

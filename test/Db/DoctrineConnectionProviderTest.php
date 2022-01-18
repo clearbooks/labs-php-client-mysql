@@ -27,7 +27,7 @@ class DoctrineConnectionProviderTest extends TestCase
         $connection = $this->doctrineConnectionProvider->getConnection();
 
         $this->assertNotNull( $connection );
-        $this->assertTrue( $connection->ping() );
+        $this->assertTrue( $connection->connect() );
         $this->assertTrue( $connection->isConnected() );
     }
 }

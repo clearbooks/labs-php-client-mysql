@@ -1,12 +1,11 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
-use Notoj\ReflectionClass;
-use Notoj\ReflectionProperty;
+use Doctrine\Common\Annotations\AnnotationReader;
 
 abstract class CamelCaseMapperEntity
 {
-    const WORD_DELIMITER = "_";
+    private const WORD_DELIMITER = "_";
 
     /**
      * @param array $data
@@ -22,15 +21,10 @@ abstract class CamelCaseMapperEntity
         }
     }
 
-    /**
-     * @return array
-     */
-    public function toArray()
+    public function toArray(): array
     {
         $data = [ ];
-        $reflectionClass = new ReflectionClass( $this );
-
-        /** @var ReflectionProperty[] $properties */
+        $reflectionClass = new \ReflectionClass( $this );
         $properties = $reflectionClass->getProperties( \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED );
 
         foreach ( $properties as $property ) {
@@ -46,43 +40,18 @@ abstract class CamelCaseMapperEntity
         return $data;
     }
 
-    /**
-     * @param ReflectionProperty $property
-     * @return bool
-     */
-    private function isPropertyRequiredInOutputArray( ReflectionProperty $property )
+    private function isPropertyRequiredInOutputArray( \ReflectionProperty $property ): bool
     {
-        $isNullable = $this->isPropertyNullable( $property );
-        $isTransient = $this->isPropertyTransient( $property );
+        $docComment = $property->getDocComment();
+        $isNullable = preg_match( "/^[\t *]*@Nullable[\t ]*$/m", $docComment );
+        $isTransient = preg_match( "/^[\t *]*@Transient[\t ]*$/m", $docComment );
         $propertyName = $property->getName();
         $propertyValue = $this->{$propertyName};
 
         return ( $isNullable || $propertyValue !== null ) && !$isTransient;
     }
 
-    /**
-     * @param ReflectionProperty $property
-     * @return bool
-     */
-    private function isPropertyNullable( ReflectionProperty $property )
-    {
-        return $property->getAnnotations()->getOne( "Nullable" ) !== false;
-    }
-
-    /**
-     * @param ReflectionProperty $property
-     * @return bool
-     */
-    private function isPropertyTransient( ReflectionProperty $property )
-    {
-        return $property->getAnnotations()->getOne( "Transient" ) !== false;
-    }
-
-    /**
-     * @param string $word
-     * @return string
-     */
-    private function convertToCamelCase( $word )
+    private function convertToCamelCase( string $word ): string
     {
         return lcfirst( preg_replace_callback(
                                 '/' . self::WORD_DELIMITER . '([a-z0-9])/i',
@@ -93,11 +62,7 @@ abstract class CamelCaseMapperEntity
                         ) );
     }
 
-    /**
-     * @param string $word
-     * @return string
-     */
-    private function convertToDbKey( $word )
+    private function convertToDbKey( string $word ): string
     {
         return strtolower( preg_replace( '/(.)([A-Z0-9])/', '$1' . self::WORD_DELIMITER . '$2', $word ) );
     }

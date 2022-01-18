@@ -259,12 +259,12 @@ class ToggleStorage implements ToggleStorageOperations
         $queryBuilder->setParameter( 0, $identityId );
         $queryBuilder->setParameter( 1, $toggle->getId() );
 
-        $active = $queryBuilder->execute()->fetchColumn();
+        $active = $queryBuilder->executeQuery()->fetchOne();
         if ( $active === false ) {
             return null;
         }
 
-        return $active === "0" ? false : true;
+        return (int)$active !== 0;
     }
 
     /**
