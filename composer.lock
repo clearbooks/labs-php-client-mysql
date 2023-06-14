@@ -4,29 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3cb2816321ed6ca323e2f69e7452494",
+    "content-hash": "c15d4e307d9eb42a0e9ac3ed93a62257",
     "packages": [
         {
             "name": "clearbooks/labs-php-client",
-            "version": "2.0.0",
+            "version": "dev-php82-compatibility",
             "source": {
                 "type": "git",
                 "url": "https://github.com/clearbooks/labs-php-client.git",
-                "reference": "65b6b4af7f3823ab33447e53c201b09be7cc3640"
+                "reference": "8cacc9cda8c0e2ae0b5582c2d52a91e40e3ca9db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/65b6b4af7f3823ab33447e53c201b09be7cc3640",
-                "reference": "65b6b4af7f3823ab33447e53c201b09be7cc3640",
+                "url": "https://api.github.com/repos/clearbooks/labs-php-client/zipball/8cacc9cda8c0e2ae0b5582c2d52a91e40e3ca9db",
+                "reference": "8cacc9cda8c0e2ae0b5582c2d52a91e40e3ca9db",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2"
+                "php": ">=7.4"
             },
             "require-dev": {
-                "behat/behat": "^3.7",
-                "codeclimate/php-test-reporter": "dev-master",
-                "phpunit/phpunit": "^8"
+                "behat/behat": "^3.13",
+                "phpunit/phpunit": "^9.6.9",
+                "scrutinizer/ocular": "^1.9"
             },
             "type": "library",
             "autoload": {
@@ -48,10 +48,10 @@
             ],
             "description": "Sensible releases",
             "support": {
-                "source": "https://github.com/clearbooks/labs-php-client/tree/2.0.0",
+                "source": "https://github.com/clearbooks/labs-php-client/tree/php82-compatibility",
                 "issues": "https://github.com/clearbooks/labs-php-client/issues"
             },
-            "time": "2020-10-02T08:32:44+00:00"
+            "time": "2023-06-13T16:13:53+00:00"
         },
         {
             "name": "clearbooks/labs-schema",
@@ -2548,7 +2548,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "clearbooks/labs-php-client": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

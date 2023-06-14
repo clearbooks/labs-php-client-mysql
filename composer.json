@@ -14,7 +14,7 @@
   "require":{
     "php": ">=7.4",
     "clearbooks/labs-schema": "^1.1.2",
-    "clearbooks/labs-php-client": "^2.0.0",
+    "clearbooks/labs-php-client": "dev-php82-compatibility",
     "doctrine/dbal": "^3.6.3",
     "php-di/php-di": "^6.4.0"
   },
