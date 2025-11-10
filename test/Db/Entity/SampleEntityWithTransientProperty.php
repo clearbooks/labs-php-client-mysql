@@ -5,15 +5,22 @@ class SampleEntityWithTransientProperty extends SampleEntityWithoutTransientProp
 {
     /**
      * @Transient
+     * @var string
      */
-    protected string $invalid_property;
+    protected $invalid_property;
 
-    public function getInvalidProperty(): string
+    /**
+     * @return string
+     */
+    public function getInvalidProperty()
     {
         return $this->invalid_property;
     }
 
-    public function setInvalidProperty( string $invalid_property ): void
+    /**
+     * @param string $invalid_property
+     */
+    public function setInvalidProperty( $invalid_property )
     {
         $this->invalid_property = $invalid_property;
     }
