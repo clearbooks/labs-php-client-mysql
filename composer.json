@@ -12,7 +12,8 @@
     "psr-4": {"Clearbooks\\Labs\\": ["src/", "test/"]}
   },
   "require":{
-    "php": ">=7.4",
+    "php": ">=8.3",
+    "ext-pdo_mysql":  "*",
     "clearbooks/labs-schema": "^1.1.2",
     "clearbooks/labs-php-client": "^2.1.0",
     "doctrine/dbal": "^3.6.3",
