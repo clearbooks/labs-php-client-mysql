@@ -6,10 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class DoctrineConnectionProviderTest extends TestCase
 {
-    /**
-     * @var DoctrineConnectionProvider
-     */
-    private $doctrineConnectionProvider;
+    private DoctrineConnectionProvider $doctrineConnectionProvider;
 
     public function setUp(): void
     {

@@ -1,114 +1,66 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
+use DateTime;
+
 class Release extends CamelCaseMapperEntity
 {
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $id;
+    protected string $name;
+    protected string $info = "";
+    protected int $visibility;
+    protected ?string $releaseDate;
 
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $info = "";
-
-    /**
-     * @var int
-     */
-    protected $visibility;
-
-    /**
-     * @Nullable
-     * @var string
-     */
-    protected $releaseDate;
-
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId( $id )
+    public function setId( int $id ): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName( $name )
+    public function setName( string $name ): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getInfo()
+    public function getInfo(): string
     {
         return $this->info;
     }
 
-    /**
-     * @param string $info
-     */
-    public function setInfo( $info )
+    public function setInfo( string $info ): void
     {
         $this->info = $info;
     }
 
-    /**
-     * @return bool
-     */
-    public function getVisibility()
+    public function getVisibility(): bool
     {
         return !!$this->visibility;
     }
 
-    /**
-     * @param bool $visibility
-     */
-    public function setVisibility( $visibility )
+    public function setVisibility( bool $visibility ): void
     {
         $this->visibility = $visibility ? 1 : 0;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getReleaseDate()
+    public function getReleaseDate(): ?DateTime
     {
         if ( empty( $this->releaseDate ) ) {
             return null;
         }
 
-        return new \DateTime( $this->releaseDate );
+        return new DateTime( $this->releaseDate );
     }
 
-    /**
-     * @param \DateTime $releaseDate
-     */
-    public function setReleaseDate( \DateTime $releaseDate )
+    public function setReleaseDate( DateTime $releaseDate ): void
     {
         $this->releaseDate = $releaseDate->format( "Y-m-d" );
     }

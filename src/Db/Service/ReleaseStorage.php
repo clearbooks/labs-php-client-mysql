@@ -8,31 +8,16 @@ use Doctrine\DBAL\Connection;
 
 class ReleaseStorage implements ReleaseRetriever
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
+    private ReleaseTable $releaseTable;
 
-    /**
-     * @var ReleaseTable
-     */
-    private $releaseTable;
-
-    /**
-     * @param Connection       $connection
-     * @param ReleaseTable     $releaseTable
-     */
     public function __construct( Connection $connection, ReleaseTable $releaseTable )
     {
         $this->connection = $connection;
         $this->releaseTable = $releaseTable;
     }
 
-    /**
-     * @param int $releaseId
-     * @return Release|null
-     */
-    public function getReleaseById( $releaseId )
+    public function getReleaseById( int $releaseId ): ?Release
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select( "*" )->from( (string)$this->releaseTable )->where( "id = ?" );
@@ -42,11 +27,7 @@ class ReleaseStorage implements ReleaseRetriever
         return !empty( $releaseData ) ? new Release( $releaseData ) : null;
     }
 
-    /**
-     * @param Release $release
-     * @return int
-     */
-    public function insertRelease( Release $release )
+    public function insertRelease( Release $release ): int
     {
         $affectedRows = $this->connection->insert( $this->releaseTable, $release->toArray() );
         return $affectedRows > 0 ? $this->connection->lastInsertId() : 0;

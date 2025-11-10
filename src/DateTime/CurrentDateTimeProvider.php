@@ -2,14 +2,12 @@
 namespace Clearbooks\Labs\DateTime;
 
 use Clearbooks\Labs\DateTime\UseCase\DateTimeProvider;
+use DateTime;
 
 class CurrentDateTimeProvider implements DateTimeProvider
 {
-    /**
-     * @return \DateTime
-     */
-    public function getDateTime()
+    public function getDateTime(): DateTime
     {
-        return new \DateTime();
+        return new DateTime();
     }
 }

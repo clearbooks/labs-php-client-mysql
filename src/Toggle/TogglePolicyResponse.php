@@ -3,31 +3,19 @@ namespace Clearbooks\Labs\Toggle;
 
 class TogglePolicyResponse implements \Clearbooks\Labs\Client\Toggle\UseCase\Response\TogglePolicyResponse
 {
-    /**
-     * @var bool|null
-     */
-    private $togglePolicyActive;
+    private ?bool $togglePolicyActive;
 
-    /**
-     * @param bool|null $togglePolicyActive
-     */
-    public function __construct( $togglePolicyActive )
+    public function __construct( ?bool $togglePolicyActive )
     {
         $this->togglePolicyActive = $togglePolicyActive;
     }
 
-    /**
-     * @return bool
-     */
-    public function isEnabled()
+    public function isEnabled(): bool
     {
         return $this->togglePolicyActive === true;
     }
 
-    /**
-     * @return bool
-     */
-    public function isNotSet()
+    public function isNotSet(): bool
     {
         return $this->togglePolicyActive === null;
     }

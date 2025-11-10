@@ -3,65 +3,36 @@ namespace Clearbooks\Labs\Db\Entity;
 
 class SampleEntityWithoutTransientProperty extends CamelCaseMapperEntity
 {
-    /**
-     * @var string
-     */
-    protected $single;
+    protected string $single;
+    protected string $multipleWords;
+    protected string $moreThanTwoWords;
 
-    /**
-     * @var string
-     */
-    protected $multipleWords;
-
-    /**
-     * @var string
-     */
-    protected $moreThanTwoWords;
-
-    /**
-     * @return string
-     */
-    public function getSingle()
+    public function getSingle(): string
     {
         return $this->single;
     }
 
-    /**
-     * @param string $single
-     */
-    public function setSingle( $single )
+    public function setSingle( string $single ): void
     {
         $this->single = $single;
     }
 
-    /**
-     * @return string
-     */
-    public function getMultipleWords()
+    public function getMultipleWords(): string
     {
         return $this->multipleWords;
     }
 
-    /**
-     * @param string $multipleWords
-     */
-    public function setMultipleWords( $multipleWords )
+    public function setMultipleWords( string $multipleWords ): void
     {
         $this->multipleWords = $multipleWords;
     }
 
-    /**
-     * @return string
-     */
-    public function getMoreThanTwoWords()
+    public function getMoreThanTwoWords(): string
     {
         return $this->moreThanTwoWords;
     }
 
-    /**
-     * @param string $moreThanTwoWords
-     */
-    public function setMoreThanTwoWords( $moreThanTwoWords )
+    public function setMoreThanTwoWords( string $moreThanTwoWords ): void
     {
         $this->moreThanTwoWords = $moreThanTwoWords;
     }

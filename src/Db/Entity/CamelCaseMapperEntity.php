@@ -1,15 +1,13 @@
 <?php
 namespace Clearbooks\Labs\Db\Entity;
 
-use Doctrine\Common\Annotations\AnnotationReader;
+use ReflectionClass;
+use ReflectionProperty;
 
 abstract class CamelCaseMapperEntity
 {
-    private const WORD_DELIMITER = "_";
+    private const string WORD_DELIMITER = "_";
 
-    /**
-     * @param array $data
-     */
     public function __construct( array $data = [ ] )
     {
         foreach ( $data as $key => $value ) {
@@ -24,8 +22,8 @@ abstract class CamelCaseMapperEntity
     public function toArray(): array
     {
         $data = [ ];
-        $reflectionClass = new \ReflectionClass( $this );
-        $properties = $reflectionClass->getProperties( \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED );
+        $reflectionClass = new ReflectionClass( $this );
+        $properties = $reflectionClass->getProperties( ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED );
 
         foreach ( $properties as $property ) {
             if ( !$this->isPropertyRequiredInOutputArray( $property ) ) {
@@ -40,7 +38,7 @@ abstract class CamelCaseMapperEntity
         return $data;
     }
 
-    private function isPropertyRequiredInOutputArray( \ReflectionProperty $property ): bool
+    private function isPropertyRequiredInOutputArray( ReflectionProperty $property ): bool
     {
         $docComment = $property->getDocComment();
         $isNullable = preg_match( "/^[\t *]*@Nullable[\t ]*$/m", $docComment );

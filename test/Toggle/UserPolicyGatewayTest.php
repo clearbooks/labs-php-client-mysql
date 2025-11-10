@@ -6,11 +6,9 @@ use Clearbooks\Labs\Toggle\Entity\UserStub;
 
 class UserPolicyGatewayTest extends TogglePolicyGatewayTest
 {
-    const MAGIC_NON_EXISTENT_TOGGLE_ID = 999999;
-    /**
-     * @var UserPolicyGateway
-     */
-    private $userPolicyGateway;
+    const int MAGIC_NON_EXISTENT_TOGGLE_ID = 999999;
+
+    private UserPolicyGateway $userPolicyGateway;
 
     public function setUp(): void
     {

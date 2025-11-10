@@ -8,15 +8,8 @@ use Clearbooks\Labs\Toggle\Entity\UserStub;
 
 class AutoSubscribersGatewayTest extends LabsTest
 {
-    /**
-     * @var AutoSubscribersStorage
-     */
-    private $autoSubscribersStorage;
-
-    /**
-     * @var AutoSubscribersGateway
-     */
-    private $autoSubscribersGateway;
+    private AutoSubscribersStorage $autoSubscribersStorage;
+    private AutoSubscribersGateway $autoSubscribersGateway;
 
     public function setUp(): void
     {

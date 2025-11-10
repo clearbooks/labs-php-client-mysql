@@ -3,108 +3,58 @@ namespace Clearbooks\Labs\Db\Entity;
 
 class Toggle extends CamelCaseMapperEntity
 {
-    /**
-     * @var int
-     */
-    protected $id;
+    protected int $id;
+    protected string $name;
+    protected string $type;
+    protected int $visible;
+    protected ?int $releaseId;
 
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var int
-     */
-    protected $visible;
-
-    /**
-     * @Nullable
-     * @var int
-     */
-    protected $releaseId;
-
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId( $id )
+    public function setId( int $id ): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName( $name )
+    public function setName( string $name ): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     */
-    public function setType( $type )
+    public function setType( string $type )
     {
         $this->type = $type;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isVisible()
+    public function isVisible(): bool
     {
         return !!$this->visible;
     }
 
-    /**
-     * @param boolean $visible
-     */
-    public function setVisible( $visible )
+    public function setVisible( bool $visible ): void
     {
         $this->visible = $visible ? 1 : 0;
     }
 
-    /**
-     * @return int
-     */
-    public function getReleaseId()
+    public function getReleaseId(): int
     {
         return $this->releaseId;
     }
 
-    /**
-     * @param int $releaseId
-     */
-    public function setReleaseId( $releaseId )
+    public function setReleaseId( int $releaseId ): void
     {
         $this->releaseId = $releaseId;
     }

@@ -7,31 +7,16 @@ use Doctrine\DBAL\Connection;
 
 class AutoSubscribersStorage implements UserAutoSubscriptionChecker
 {
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
+    private Subscribers $subscribersTable;
 
-    /**
-     * @var Subscribers
-     */
-    private $subscribersTable;
-
-    /**
-     * @param Connection  $connection
-     * @param Subscribers $subscribersTable
-     */
     public function __construct( Connection $connection, Subscribers $subscribersTable )
     {
         $this->connection = $connection;
         $this->subscribersTable = $subscribersTable;
     }
 
-    /**
-     * @param string $userId
-     * @return bool
-     */
-    public function isUserAutoSubscriber( $userId )
+    public function isUserAutoSubscriber( string $userId ): bool
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select( "COUNT(user_id) AS cnt" )->from( (string)$this->subscribersTable )->where( "user_id = ?" );
@@ -41,11 +26,7 @@ class AutoSubscribersStorage implements UserAutoSubscriptionChecker
         return $numberOfUserIdRecords > 0;
     }
 
-    /**
-     * @param string $userId
-     * @return bool
-     */
-    public function setUserAsAutoSubscriber( $userId )
+    public function setUserAsAutoSubscriber( string $userId ): bool
     {
         if ( $this->isUserAutoSubscriber( $userId ) ) {
             return true;
