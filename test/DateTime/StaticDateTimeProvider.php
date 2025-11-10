@@ -2,39 +2,28 @@
 namespace Clearbooks\Labs\DateTime;
 
 use Clearbooks\Labs\DateTime\UseCase\DateTimeProvider;
+use DateTime;
 
 class StaticDateTimeProvider implements DateTimeProvider
 {
-    /**
-     * @var \DateTime
-     */
-    private $dateTime;
+    private DateTime $dateTime;
 
-    /**
-     * @param \DateTime|null $dateTime
-     */
-    public function __construct( $dateTime = null )
+    public function __construct( ?DateTime $dateTime = null )
     {
-        if ( $dateTime instanceof \DateTime ) {
+        if ( $dateTime instanceof DateTime ) {
             $this->dateTime = $dateTime;
             return;
         }
 
-        $this->dateTime = new \DateTime();
+        $this->dateTime = new DateTime();
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDateTime()
+    public function getDateTime(): DateTime
     {
         return $this->dateTime;
     }
 
-    /**
-     * @param \DateTime $dateTime
-     */
-    public function setDateTime( \DateTime $dateTime )
+    public function setDateTime( DateTime $dateTime ): void
     {
         $this->dateTime = $dateTime;
     }

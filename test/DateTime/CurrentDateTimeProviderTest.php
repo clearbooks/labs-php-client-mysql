@@ -5,10 +5,7 @@ use Clearbooks\Labs\LabsTest;
 
 class CurrentDateTimeProviderTest extends LabsTest
 {
-    /**
-     * @var CurrentDateTimeProvider
-     */
-    private $currentDateTimeProvider;
+    private CurrentDateTimeProvider $currentDateTimeProvider;
 
     public function setUp(): void
     {
