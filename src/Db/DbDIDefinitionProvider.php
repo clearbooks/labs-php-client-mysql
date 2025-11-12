@@ -8,7 +8,7 @@ class DbDIDefinitionProvider implements DIDefinitionProvider
     /**
      * @return string[]
      */
-    public function getDefinitionPaths()
+    public function getDefinitionPaths(): array
     {
         return [
             __DIR__ . "/../../config/db-config.php",

@@ -14,25 +14,10 @@ use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
 
 class ToggleGatewayTest extends LabsTest
 {
-    /**
-     * @var ToggleStorage
-     */
-    private $toggleStorage;
-
-    /**
-     * @var ReleaseStorage
-     */
-    private $releaseStorage;
-
-    /**
-     * @var ToggleGateway
-     */
-    private $toggleGateway;
-
-    /**
-     * @var StaticDateTimeProvider
-     */
-    private $dateTimeProvider;
+    private ToggleStorage $toggleStorage;
+    private ReleaseStorage $releaseStorage;
+    private ToggleGateway $toggleGateway;
+    private StaticDateTimeProvider $dateTimeProvider;
 
     public function setUp(): void
     {
@@ -166,11 +151,7 @@ class ToggleGatewayTest extends LabsTest
         $this->assertTrue( $this->toggleGateway->isReleaseDateOfToggleReleaseTodayOrInThePast( $toggle->getName() ) );
     }
 
-    /**
-     * @param \DateTime|null $releaseDate
-     * @return Toggle
-     */
-    private function createToggleWithRelease( $releaseDate )
+    private function createToggleWithRelease( ?\DateTime $releaseDate ): Toggle
     {
         $release = new Release();
         $release->setName( "test release" );

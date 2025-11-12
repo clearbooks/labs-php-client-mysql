@@ -5,49 +5,19 @@ use Clearbooks\Labs\Db\Entity\Toggle;
 
 class CachedToggleStorage implements ToggleStorageOperations
 {
-    /**
-     * @var ToggleStorageOperations
-     */
-    private $toggleStorage;
+    private ToggleStorageOperations $toggleStorage;
+    private array $toggleIdToToggleMap = [ ];
+    private array $toggleNameToToggleMap = [ ];
+    private array $toggleGroupPolicyMap = [ ];
+    private array $toggleUserPolicyMap = [ ];
+    private array $toggleSegmentPolicyMap = [ ];
 
-    /**
-     * @var array
-     */
-    private $toggleIdToToggleMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleNameToToggleMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleGroupPolicyMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleUserPolicyMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleSegmentPolicyMap = [ ];
-
-    /**
-     * @param ToggleStorageOperations $toggleStorage
-     */
     public function __construct( ToggleStorageOperations $toggleStorage )
     {
         $this->toggleStorage = $toggleStorage;
     }
 
-    /**
-     * @param int $toggleId
-     * @return Toggle|null
-     */
-    public function getToggleById( $toggleId )
+    public function getToggleById( int $toggleId ): ?Toggle
     {
         if ( !array_key_exists( $toggleId, $this->toggleIdToToggleMap ) ) {
             $this->toggleIdToToggleMap[$toggleId] = $this->toggleStorage->getToggleById( $toggleId );
@@ -56,11 +26,7 @@ class CachedToggleStorage implements ToggleStorageOperations
         return $this->toggleIdToToggleMap[$toggleId];
     }
 
-    /**
-     * @param string $toggleName
-     * @return Toggle|null
-     */
-    public function getToggleByName( $toggleName )
+    public function getToggleByName( string $toggleName ): ?Toggle
     {
         if ( !array_key_exists( $toggleName, $this->toggleNameToToggleMap ) ) {
             $this->toggleNameToToggleMap[$toggleName] = $this->toggleStorage->getToggleByName( $toggleName );
@@ -69,12 +35,7 @@ class CachedToggleStorage implements ToggleStorageOperations
         return $this->toggleNameToToggleMap[$toggleName];
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $groupId
-     * @return bool|null
-     */
-    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    public function getGroupPolicyOfToggle( string $toggleName, string $groupId ): ?bool
     {
         if ( !isset( $this->toggleGroupPolicyMap[$toggleName] ) ) {
             $this->toggleGroupPolicyMap[$toggleName] = [ ];
@@ -87,12 +48,7 @@ class CachedToggleStorage implements ToggleStorageOperations
         return $this->toggleGroupPolicyMap[$toggleName][$groupId];
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $userId
-     * @return bool|null
-     */
-    public function getUserPolicyOfToggle( $toggleName, $userId )
+    public function getUserPolicyOfToggle( string $toggleName, string $userId ): ?bool
     {
         if ( !isset( $this->toggleUserPolicyMap[$toggleName] ) ) {
             $this->toggleUserPolicyMap[$toggleName] = [ ];
@@ -105,12 +61,7 @@ class CachedToggleStorage implements ToggleStorageOperations
         return $this->toggleUserPolicyMap[$toggleName][$userId];
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $segmentId
-     * @return bool|null
-     */
-    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    public function getSegmentPolicyOfToggle( string $toggleName, string $segmentId ): ?bool
     {
         if ( !isset( $this->toggleSegmentPolicyMap[$toggleName] ) ) {
             $this->toggleSegmentPolicyMap[$toggleName] = [ ];

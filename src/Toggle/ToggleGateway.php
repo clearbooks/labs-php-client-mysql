@@ -10,20 +10,9 @@ use Clearbooks\Labs\Toggle\UseCase\ToggleRetriever;
 
 class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGateway
 {
-    /**
-     * @var ToggleRetriever
-     */
-    private $toggleRetriever;
-
-    /**
-     * @var ReleaseRetriever
-     */
-    private $releaseRetriever;
-
-    /**
-     * @var DateTimeProvider
-     */
-    private $dateTimeProvider;
+    private ToggleRetriever $toggleRetriever;
+    private ReleaseRetriever $releaseRetriever;
+    private DateTimeProvider $dateTimeProvider;
 
     /**
      * @param ToggleRetriever $toggleRetriever
@@ -42,7 +31,7 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
      * @param string $toggleName
      * @return bool
      */
-    public function isToggleVisibleForUsers( $toggleName )
+    public function isToggleVisibleForUsers( $toggleName ): bool
     {
         $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
         return $toggle != null && $toggle->isVisible();
@@ -52,7 +41,7 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
      * @param string $toggleName
      * @return bool
      */
-    public function isGroupToggle( $toggleName )
+    public function isGroupToggle( $toggleName ): bool
     {
         $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
         return $toggle != null && $toggle->getType() === ToggleTable::TYPE_GROUP;
@@ -62,7 +51,7 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
      * @param string $toggleName
      * @return bool
      */
-    public function isReleaseDateOfToggleReleaseTodayOrInThePast( $toggleName )
+    public function isReleaseDateOfToggleReleaseTodayOrInThePast( $toggleName ): bool
     {
         $toggle = $this->toggleRetriever->getToggleByName( $toggleName );
         if ( !$this->toggleHasRelease( $toggle ) ) {
@@ -74,20 +63,12 @@ class ToggleGateway implements \Clearbooks\Labs\Client\Toggle\Gateway\ToggleGate
                $release->getReleaseDate() <= $this->dateTimeProvider->getDateTime();
     }
 
-    /**
-     * @param Toggle|null $toggle
-     * @return bool
-     */
-    private function toggleHasRelease( $toggle )
+    private function toggleHasRelease( ?Toggle $toggle ): bool
     {
         return $toggle instanceof Toggle && !empty( $toggle->getReleaseId() );
     }
 
-    /**
-     * @param Release|null $release
-     * @return bool
-     */
-    private function isReleaseDateSet( $release )
+    private function isReleaseDateSet( ?Release $release ): bool
     {
         return $release instanceof Release && $release->getReleaseDate() != null;
     }

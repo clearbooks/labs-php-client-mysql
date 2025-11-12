@@ -3,8 +3,5 @@ namespace Clearbooks\Labs\Db\Table\UseCase;
 
 interface Table
 {
-    /**
-     * @return string
-     */
-    public function getName();
+    public function getName(): string;
 }

@@ -3,38 +3,17 @@ namespace Clearbooks\Labs\Db;
 
 interface ConnectionDetails
 {
-    /**
-     * @return string
-     */
-    public function getHost();
+    public function getHost(): string;
 
-    /**
-     * @return int
-     */
-    public function getPort();
+    public function getPort(): int;
 
-    /**
-     * @return string
-     */
-    public function getDatabaseName();
+    public function getDatabaseName(): string;
 
-    /**
-     * @return string
-     */
-    public function getUser();
+    public function getUser(): string;
 
-    /**
-     * @return string
-     */
-    public function getPassword();
+    public function getPassword(): string;
 
-    /**
-     * @return string
-     */
-    public function getDriver();
+    public function getDriver(): string;
 
-    /**
-     * @return string
-     */
-    public function getCharset();
+    public function getCharset(): string;
 }

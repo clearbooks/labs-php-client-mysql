@@ -7,10 +7,7 @@ use Clearbooks\Labs\LabsTest;
 
 class ReleaseStorageTest extends LabsTest
 {
-    /**
-     * @var ReleaseStorage
-     */
-    private $releaseStorage;
+    private ReleaseStorage $releaseStorage;
 
     public function setUp(): void
     {

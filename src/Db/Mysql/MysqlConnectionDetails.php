@@ -5,45 +5,15 @@ use Clearbooks\Labs\Db\ConnectionDetails;
 
 class MysqlConnectionDetails implements ConnectionDetails
 {
-    /**
-     * @var string
-     */
-    private $host;
+    private string $host;
+    private int $port;
+    private string $databaseName;
+    private string $user;
+    private string $password;
+    private string $charset;
 
-    /**
-     * @var int
-     */
-    private $port;
-
-    /**
-     * @var string
-     */
-    private $databaseName;
-
-    /**
-     * @var string
-     */
-    private $user;
-
-    /**
-     * @var string
-     */
-    private $password;
-
-    /**
-     * @var string
-     */
-    private $charset;
-
-    /**
-     * @param string $host
-     * @param int $port
-     * @param string $databaseName
-     * @param string $user
-     * @param string $password
-     * @param string $charset
-     */
-    public function __construct( $host, $port, $databaseName, $user, $password, $charset )
+    public function __construct( string $host, int $port, string $databaseName, string $user, string $password,
+                                 string $charset )
     {
         $this->host = $host;
         $this->port = $port;
@@ -53,58 +23,37 @@ class MysqlConnectionDetails implements ConnectionDetails
         $this->charset = $charset;
     }
 
-    /**
-     * @return string
-     */
-    public function getHost()
+    public function getHost(): string
     {
         return $this->host;
     }
 
-    /**
-     * @return int
-     */
-    public function getPort()
+    public function getPort(): int
     {
         return $this->port;
     }
 
-    /**
-     * @return string
-     */
-    public function getDatabaseName()
+    public function getDatabaseName(): string
     {
         return $this->databaseName;
     }
 
-    /**
-     * @return string
-     */
-    public function getUser()
+    public function getUser(): string
     {
         return $this->user;
     }
 
-    /**
-     * @return string
-     */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
 
-    /**
-     * @return string
-     */
-    public function getDriver()
+    public function getDriver(): string
     {
         return "pdo_mysql";
     }
 
-    /**
-     * @return string
-     */
-    public function getCharset()
+    public function getCharset(): string
     {
         return $this->charset;
     }

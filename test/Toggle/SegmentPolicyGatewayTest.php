@@ -6,10 +6,7 @@ use Clearbooks\Labs\Toggle\Entity\SegmentStub;
 
 class SegmentPolicyGatewayTest extends TogglePolicyGatewayTest
 {
-    /**
-     * @var SegmentPolicyGateway
-     */
-    private $segmentPolicyGateway;
+    private SegmentPolicyGateway $segmentPolicyGateway;
 
     public function setUp(): void
     {

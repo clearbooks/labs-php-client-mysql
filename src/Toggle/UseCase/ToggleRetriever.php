@@ -5,15 +5,7 @@ use Clearbooks\Labs\Db\Entity\Toggle;
 
 interface ToggleRetriever
 {
-    /**
-     * @param int $toggleId
-     * @return Toggle|null
-     */
-    public function getToggleById( $toggleId );
+    public function getToggleById( int $toggleId ): ?Toggle;
 
-    /**
-     * @param string $toggleName
-     * @return Toggle|null
-     */
-    public function getToggleByName( $toggleName );
+    public function getToggleByName( string $toggleName ): ?Toggle;
 }

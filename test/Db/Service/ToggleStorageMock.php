@@ -5,132 +5,68 @@ use Clearbooks\Labs\Db\Entity\Toggle;
 
 class ToggleStorageMock implements ToggleStorageOperations
 {
-    /**
-     * @var array
-     */
-    private $callHistory = [];
+    private array $callHistory = [];
+    private array $toggleIdToToggleMap = [ ];
+    private array $toggleNameToToggleMap = [ ];
+    private array $toggleUserPolicyMap = [ ];
+    private array $toggleGroupPolicyMap = [ ];
+    private array $toggleSegmentPolicyMap = [ ];
 
-    /**
-     * @var array
-     */
-    private $toggleIdToToggleMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleNameToToggleMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleUserPolicyMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleGroupPolicyMap = [ ];
-
-    /**
-     * @var array
-     */
-    private $toggleSegmentPolicyMap = [ ];
-
-    /**
-     * @param array $toggleIdToToggleMap
-     */
-    public function setToggleIdToToggleMap( array $toggleIdToToggleMap )
+    public function setToggleIdToToggleMap( array $toggleIdToToggleMap ): void
     {
         $this->toggleIdToToggleMap = $toggleIdToToggleMap;
     }
 
-    /**
-     * @param array $toggleNameToToggleMap
-     */
     public function setToggleNameToToggleMap( array $toggleNameToToggleMap )
     {
         $this->toggleNameToToggleMap = $toggleNameToToggleMap;
     }
 
-    /**
-     * @param array $toggleUserPolicyMap
-     */
     public function setToggleUserPolicyMap( array $toggleUserPolicyMap )
     {
         $this->toggleUserPolicyMap = $toggleUserPolicyMap;
     }
 
-    /**
-     * @param array $toggleGroupPolicyMap
-     */
     public function setToggleGroupPolicyMap( array $toggleGroupPolicyMap )
     {
         $this->toggleGroupPolicyMap = $toggleGroupPolicyMap;
     }
 
-    /**
-     * @param array $toggleSegmentPolicyMap
-     */
     public function setToggleSegmentPolicyMap( array $toggleSegmentPolicyMap )
     {
         $this->toggleSegmentPolicyMap = $toggleSegmentPolicyMap;
     }
 
-    /**
-     * @param int $toggleId
-     * @return Toggle|null
-     */
-    public function getToggleById( $toggleId )
+    public function getToggleById( int $toggleId ): ?Toggle
     {
         $this->callHistory[] = [ "getToggleById", $toggleId ];
         return isset( $this->toggleIdToToggleMap[$toggleId] ) ? $this->toggleIdToToggleMap[$toggleId] : null;
     }
 
-    /**
-     * @param string $toggleName
-     * @return Toggle|null
-     */
-    public function getToggleByName( $toggleName )
+    public function getToggleByName( string $toggleName ): ?Toggle
     {
         $this->callHistory[] = [ "getToggleByName", $toggleName ];
         return isset( $this->toggleNameToToggleMap[$toggleName] ) ? $this->toggleNameToToggleMap[$toggleName] : null;
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $userId
-     * @return bool|null
-     */
-    public function getUserPolicyOfToggle( $toggleName, $userId )
+    public function getUserPolicyOfToggle( string $toggleName, string $userId ): ?bool
     {
         $this->callHistory[] = [ "getUserPolicyOfToggle", $toggleName, $userId ];
         return isset( $this->toggleUserPolicyMap[$toggleName][$userId] ) ? $this->toggleUserPolicyMap[$toggleName][$userId] : null;
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $groupId
-     * @return bool|null
-     */
-    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    public function getGroupPolicyOfToggle( string $toggleName, string $groupId ): ?bool
     {
         $this->callHistory[] = [ "getGroupPolicyOfToggle", $toggleName, $groupId ];
         return isset( $this->toggleGroupPolicyMap[$toggleName][$groupId] ) ? $this->toggleGroupPolicyMap[$toggleName][$groupId] : null;
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $segmentId
-     * @return bool|null
-     */
-    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    public function getSegmentPolicyOfToggle( string $toggleName, string $segmentId ): ?bool
     {
         $this->callHistory[] = [ "getSegmentPolicyOfToggle", $toggleName, $segmentId ];
         return isset( $this->toggleSegmentPolicyMap[$toggleName][$segmentId] ) ? $this->toggleSegmentPolicyMap[$toggleName][$segmentId] : null;
     }
 
-    /**
-     * @return array
-     */
     public function getCallHistory(): array
     {
         return $this->callHistory;

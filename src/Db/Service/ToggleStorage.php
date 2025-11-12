@@ -10,42 +10,16 @@ use Doctrine\DBAL\Connection;
 
 class ToggleStorage implements ToggleStorageOperations
 {
-    const IDENTITY_TYPE_USER = "user";
-    const IDENTITY_TYPE_GROUP = "group";
-    const IDENTITY_TYPE_SEGMENT = "segment";
+    public const string IDENTITY_TYPE_USER = "user";
+    public const string IDENTITY_TYPE_GROUP = "group";
+    public const string IDENTITY_TYPE_SEGMENT = "segment";
 
-    /**
-     * @var Connection
-     */
-    private $connection;
+    private Connection $connection;
+    private ToggleTable $toggleTable;
+    private UserPolicyTable $userPolicyTable;
+    private GroupPolicyTable $groupPolicyTable;
+    private SegmentPolicyTable $segmentPolicyTable;
 
-    /**
-     * @var ToggleTable
-     */
-    private $toggleTable;
-
-    /**
-     * @var UserPolicyTable
-     */
-    private $userPolicyTable;
-
-    /**
-     * @var GroupPolicyTable
-     */
-    private $groupPolicyTable;
-
-    /**
-     * @var SegmentPolicyTable
-     */
-    private $segmentPolicyTable;
-
-    /**
-     * @param Connection $connection
-     * @param ToggleTable $toggleTable
-     * @param UserPolicyTable $userPolicyTable
-     * @param GroupPolicyTable $groupPolicyTable
-     * @param SegmentPolicyTable $segmentPolicyTable
-     */
     public function __construct( Connection $connection, ToggleTable $toggleTable, UserPolicyTable $userPolicyTable,
                                  GroupPolicyTable $groupPolicyTable, SegmentPolicyTable $segmentPolicyTable )
     {
@@ -56,30 +30,17 @@ class ToggleStorage implements ToggleStorageOperations
         $this->segmentPolicyTable = $segmentPolicyTable;
     }
 
-    /**
-     * @param int $toggleId
-     * @return Toggle|null
-     */
-    public function getToggleById( $toggleId )
+    public function getToggleById( int $toggleId ): ?Toggle
     {
         return $this->getToggleByColumnValue( "id", $toggleId );
     }
 
-    /**
-     * @param string $toggleName
-     * @return Toggle|null
-     */
-    public function getToggleByName( $toggleName )
+    public function getToggleByName( string $toggleName ): ?Toggle
     {
         return $this->getToggleByColumnValue( "name", $toggleName );
     }
 
-    /**
-     * @param string $columnName
-     * @param mixed  $columnValue
-     * @return Toggle|null
-     */
-    private function getToggleByColumnValue( $columnName, $columnValue )
+    private function getToggleByColumnValue( string $columnName, mixed $columnValue ): ?Toggle
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select( "*" )->from( (string)$this->toggleTable )->where( $columnName . " = ?" );
@@ -89,54 +50,31 @@ class ToggleStorage implements ToggleStorageOperations
         return !empty( $toggleData ) ? new Toggle( $toggleData ) : null;
     }
 
-    /**
-     * @param Toggle $toggle
-     * @return int
-     */
-    public function insertToggle( Toggle $toggle )
+    public function insertToggle( Toggle $toggle ): int
     {
         $affectedRows = $this->connection->insert( $this->toggleTable, $toggle->toArray() );
         return $affectedRows > 0 ? $this->connection->lastInsertId() : 0;
     }
 
-    /**
-     * @param int       $toggleId
-     * @param string    $userId
-     * @param bool|null $policy
-     */
-    public function setUserPolicy( $toggleId, $userId, $policy )
+    public function setUserPolicy( int $toggleId, string $userId, ?bool $policy ): void
     {
         $this->setTogglePolicy( $toggleId, $userId, $policy, self::IDENTITY_TYPE_USER );
     }
 
-    /**
-     * @param int       $toggleId
-     * @param string    $groupId
-     * @param bool|null $policy
-     */
-    public function setGroupPolicy( $toggleId, $groupId, $policy )
+    public function setGroupPolicy( int $toggleId, string $groupId, ?bool $policy ): void
     {
         $this->setTogglePolicy( $toggleId, $groupId, $policy, self::IDENTITY_TYPE_GROUP );
     }
 
-    /**
-     * @param int       $toggleId
-     * @param string    $groupId
-     * @param bool|null $policy
-     */
-    public function setSegmentPolicy( $toggleId, $groupId, $policy )
+    public function setSegmentPolicy( int $toggleId, string $groupId, ?bool $policy ): void
     {
         $this->setTogglePolicy( $toggleId, $groupId, $policy, self::IDENTITY_TYPE_SEGMENT );
     }
 
     /**
-     * @param int       $toggleId
-     * @param string    $identityId
-     * @param bool|null $policy
-     * @param string    $typeOfIdentity
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
-    public function setTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity )
+    public function setTogglePolicy( int $toggleId, string $identityId, ?bool $policy, string $typeOfIdentity ): void
     {
         $table = $this->getPolicyTableByTypeOfIdentity( $typeOfIdentity );
         $identityField = $this->getIdentityFieldByTypeOfIdentity( $typeOfIdentity );
@@ -150,28 +88,16 @@ class ToggleStorage implements ToggleStorageOperations
     }
 
     /**
-     * @param string $table
-     * @param string $identityField
-     * @param string $identityId
-     * @param int    $toggleId
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
-    private function removeTogglePolicy( $table, $identityField, $identityId, $toggleId )
+    private function removeTogglePolicy( string $table, string $identityField, string $identityId, int $toggleId ): void
     {
         $this->connection->delete( $table,
                                    [ $identityField => $identityId, "toggle_id" => $toggleId ] );
     }
 
-    /**
-     * @param int    $toggleId
-     * @param string $identityId
-     * @param bool   $policy
-     * @param string $typeOfIdentity
-     * @param string $table
-     * @param string $identityField
-     */
-    private function createOrModifyTogglePolicy( $toggleId, $identityId, $policy, $typeOfIdentity, $table,
-                                                 $identityField )
+    private function createOrModifyTogglePolicy( int $toggleId, string $identityId, bool $policy,
+                                                 string $typeOfIdentity, string $table, string $identityField ): void
     {
         $currentPolicy = $this->getPolicyOfToggleById( $toggleId, $identityId, $typeOfIdentity );
 
@@ -186,43 +112,22 @@ class ToggleStorage implements ToggleStorageOperations
                                    [ $identityField => $identityId, "toggle_id" => $toggleId ] );
     }
 
-    /**
-     * @param string  $toggleName
-     * @param string $userId
-     * @return bool|null
-     */
-    public function getUserPolicyOfToggle( $toggleName, $userId )
+    public function getUserPolicyOfToggle( string $toggleName, string $userId ): ?bool
     {
         return $this->getPolicyOfToggleByName( $toggleName, $userId, self::IDENTITY_TYPE_USER );
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $groupId
-     * @return bool|null
-     */
-    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    public function getGroupPolicyOfToggle( string $toggleName, string $groupId ): ?bool
     {
         return $this->getPolicyOfToggleByName( $toggleName, $groupId, self::IDENTITY_TYPE_GROUP );
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $segmentId
-     * @return bool|null
-     */
-    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    public function getSegmentPolicyOfToggle( string $toggleName, string $segmentId ): ?bool
     {
         return $this->getPolicyOfToggleByName( $toggleName, $segmentId, self::IDENTITY_TYPE_SEGMENT );
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $identityId
-     * @param string $typeOfIdentity
-     * @return bool|null
-     */
-    public function getPolicyOfToggleByName( $toggleName, $identityId, $typeOfIdentity )
+    public function getPolicyOfToggleByName( string $toggleName, string $identityId, string $typeOfIdentity ): ?bool
     {
         $toggle = $this->getToggleByName( $toggleName );
         if ( $toggle == null ) {
@@ -232,13 +137,7 @@ class ToggleStorage implements ToggleStorageOperations
         return $this->getPolicyOfExistingToggle( $toggle, $identityId, $typeOfIdentity );
     }
 
-    /**
-     * @param int $toggleId
-     * @param string $identityId
-     * @param string $typeOfIdentity
-     * @return bool|null
-     */
-    public function getPolicyOfToggleById( $toggleId, $identityId, $typeOfIdentity )
+    public function getPolicyOfToggleById( int $toggleId, string $identityId, string $typeOfIdentity ): ?bool
     {
         $toggle = $this->getToggleById( $toggleId );
         if ( $toggle == null ) {
@@ -248,7 +147,7 @@ class ToggleStorage implements ToggleStorageOperations
         return $this->getPolicyOfExistingToggle( $toggle, $identityId, $typeOfIdentity );
     }
 
-    private function getPolicyOfExistingToggle( Toggle $toggle, $identityId, $typeOfIdentity )
+    private function getPolicyOfExistingToggle( Toggle $toggle, $identityId, $typeOfIdentity ): ?bool
     {
         $table = $this->getPolicyTableByTypeOfIdentity( $typeOfIdentity );
         $identityField = $this->getIdentityFieldByTypeOfIdentity( $typeOfIdentity );
@@ -267,11 +166,7 @@ class ToggleStorage implements ToggleStorageOperations
         return (int)$active !== 0;
     }
 
-    /**
-     * @param string $typeOfIdentity
-     * @return string
-     */
-    private function getPolicyTableByTypeOfIdentity( $typeOfIdentity )
+    private function getPolicyTableByTypeOfIdentity( string $typeOfIdentity ): string
     {
         switch ( $typeOfIdentity ) {
             case self::IDENTITY_TYPE_GROUP:
@@ -285,11 +180,7 @@ class ToggleStorage implements ToggleStorageOperations
         }
     }
 
-    /**
-     * @param string $typeOfIdentity
-     * @return string
-     */
-    private function getIdentityFieldByTypeOfIdentity( $typeOfIdentity )
+    private function getIdentityFieldByTypeOfIdentity( string $typeOfIdentity ): string
     {
         switch ( $typeOfIdentity ) {
             case self::IDENTITY_TYPE_GROUP:

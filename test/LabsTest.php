@@ -6,10 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class LabsTest extends TestCase
 {
-    /**
-     * @var Connection
-     */
-    protected $connection;
+    protected Connection $connection;
 
     public function setUp(): void
     {

@@ -6,5 +6,5 @@ interface DIDefinitionProvider
     /**
      * @return string[]
      */
-    public function getDefinitionPaths();
+    public function getDefinitionPaths(): array;
 }

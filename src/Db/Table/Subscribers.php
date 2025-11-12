@@ -5,10 +5,7 @@ use Clearbooks\Labs\Db\Table\UseCase\StringifyableTable;
 
 class Subscribers extends StringifyableTable
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return "subscribers";
     }

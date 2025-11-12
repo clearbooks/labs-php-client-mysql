@@ -1,10 +1,9 @@
 <?php
 namespace Clearbooks\Labs\DateTime\UseCase;
 
+use DateTime;
+
 interface DateTimeProvider
 {
-    /**
-     * @return \DateTime
-     */
-    public function getDateTime();
+    public function getDateTime(): DateTime;
 }

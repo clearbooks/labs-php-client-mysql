@@ -5,120 +5,63 @@ use Clearbooks\Labs\Db\Entity\Toggle;
 
 class ToggleStorageSpy implements ToggleStorageOperations
 {
-    /**
-     * @var int
-     */
-    private $getToggleByIdCallCounter = 0;
+    private int $getToggleByIdCallCounter = 0;
+    private int $getToggleByNameCallCounter = 0;
+    private int $getUserPolicyOfToggleCallCounter = 0;
+    private int $getGroupPolicyOfToggleCallCounter = 0;
+    private int $getSegmentPolicyOfToggleCallCounter = 0;
 
-    /**
-     * @var int
-     */
-    private $getToggleByNameCallCounter = 0;
-
-    /**
-     * @var int
-     */
-    private $getUserPolicyOfToggleCallCounter = 0;
-
-    /**
-     * @var int
-     */
-    private $getGroupPolicyOfToggleCallCounter = 0;
-
-    /**
-     * @var int
-     */
-    private $getSegmentPolicyOfToggleCallCounter = 0;
-
-    /**
-     * @param int $toggleId
-     * @return Toggle|null
-     */
-    public function getToggleById( $toggleId )
+    public function getToggleById( int $toggleId ): ?Toggle
     {
         ++$this->getToggleByIdCallCounter;
         return new Toggle();
     }
 
-    /**
-     * @param string $toggleName
-     * @return Toggle|null
-     */
-    public function getToggleByName( $toggleName )
+    public function getToggleByName( string $toggleName ): ?Toggle
     {
         ++$this->getToggleByNameCallCounter;
         return new Toggle();
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $userId
-     * @return bool|null
-     */
-    public function getUserPolicyOfToggle( $toggleName, $userId )
+    public function getUserPolicyOfToggle( string $toggleName, string $userId ): ?bool
     {
         ++$this->getUserPolicyOfToggleCallCounter;
         return false;
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $groupId
-     * @return bool|null
-     */
-    public function getGroupPolicyOfToggle( $toggleName, $groupId )
+    public function getGroupPolicyOfToggle( string $toggleName, string $groupId ): ?bool
     {
         ++$this->getGroupPolicyOfToggleCallCounter;
         return false;
     }
 
-    /**
-     * @param string $toggleName
-     * @param string $segmentId
-     * @return bool|null
-     */
-    public function getSegmentPolicyOfToggle( $toggleName, $segmentId )
+    public function getSegmentPolicyOfToggle( string $toggleName, string $segmentId ): ?bool
     {
         ++$this->getSegmentPolicyOfToggleCallCounter;
         return false;
     }
 
-    /**
-     * @return int
-     */
-    public function getGetToggleByIdCallCounter()
+    public function getGetToggleByIdCallCounter(): int
     {
         return $this->getToggleByIdCallCounter;
     }
 
-    /**
-     * @return int
-     */
-    public function getGetToggleByNameCallCounter()
+    public function getGetToggleByNameCallCounter(): int
     {
         return $this->getToggleByNameCallCounter;
     }
 
-    /**
-     * @return int
-     */
-    public function getGetUserPolicyOfToggleCallCounter()
+    public function getGetUserPolicyOfToggleCallCounter(): int
     {
         return $this->getUserPolicyOfToggleCallCounter;
     }
 
-    /**
-     * @return int
-     */
-    public function getGetGroupPolicyOfToggleCallCounter()
+    public function getGetGroupPolicyOfToggleCallCounter(): int
     {
         return $this->getGroupPolicyOfToggleCallCounter;
     }
 
-    /**
-     * @return int
-     */
-    public function getGetSegmentPolicyOfToggleCallCounter()
+    public function getGetSegmentPolicyOfToggleCallCounter(): int
     {
         return $this->getSegmentPolicyOfToggleCallCounter;
     }

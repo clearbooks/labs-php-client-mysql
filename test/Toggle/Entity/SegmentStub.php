@@ -5,39 +5,24 @@ use Clearbooks\Labs\Client\Toggle\Entity\Segment;
 
 class SegmentStub implements Segment
 {
-    /**
-     * @var string
-     */
-    private $segmentId;
+    private string $segmentId;
 
-    /**
-     * @param string $segmentId
-     */
-    public function __construct( $segmentId )
+    public function __construct( string $segmentId )
     {
         $this->segmentId = $segmentId;
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->segmentId;
     }
 
-    /**
-     * @return int
-     */
-    public function getPriority()
+    public function getPriority(): int
     {
         return 0;
     }
 
-    /**
-     * @return bool
-     */
-    public function isLocked()
+    public function isLocked(): bool
     {
         return false;
     }

@@ -9,15 +9,8 @@ use Clearbooks\Labs\LabsTest;
 
 class ToggleStorageTest extends LabsTest
 {
-    /**
-     * @var ToggleStorage
-     */
-    private $toggleStorage;
-
-    /**
-     * @var ReleaseStorage
-     */
-    private $releaseStorage;
+    private ToggleStorage $toggleStorage;
+    private ReleaseStorage $releaseStorage;
 
     public function setUp(): void
     {

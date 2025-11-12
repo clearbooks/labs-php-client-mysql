@@ -8,10 +8,7 @@ use Clearbooks\Labs\LabsTest;
 
 abstract class TogglePolicyGatewayTest extends LabsTest
 {
-    /**
-     * @var ToggleStorage
-     */
-    protected $toggleStorage;
+    protected ToggleStorage $toggleStorage;
 
     public function setUp(): void
     {

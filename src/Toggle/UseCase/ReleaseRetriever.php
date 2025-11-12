@@ -5,9 +5,5 @@ use Clearbooks\Labs\Db\Entity\Release;
 
 interface ReleaseRetriever
 {
-    /**
-     * @param int $releaseId
-     * @return Release|null
-     */
-    public function getReleaseById( $releaseId );
+    public function getReleaseById( int $releaseId ): ?Release;
 }

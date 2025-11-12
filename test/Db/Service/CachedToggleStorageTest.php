@@ -6,15 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class CachedToggleStorageTest extends TestCase
 {
-    /**
-     * @var CachedToggleStorage
-     */
-    private $cachedToggleStorage;
-
-    /**
-     * @var ToggleStorageMock
-     */
-    private $toggleStorageMock;
+    private CachedToggleStorage $cachedToggleStorage;
+    private ToggleStorageMock $toggleStorageMock;
 
     public function setUp(): void
     {
