@@ -7,10 +7,8 @@ abstract class TableTest extends LabsTest
 {
     /**
      * Asserts that a table exists
-     *
-     * @param string $tableName
      */
-    public function assertTableExists( $tableName )
+    public function assertTableExists( string $tableName ): void
     {
         $schemaManager = $this->connection->getSchemaManager();
         $this->assertTrue( $schemaManager->tablesExist( [ $tableName ] ) );

@@ -3,10 +3,5 @@ namespace Clearbooks\Labs\Toggle\UseCase;
 
 interface SegmentPolicyRetriever
 {
-    /**
-     * @param string $toggleName
-     * @param string $segmentId
-     * @return bool|null
-     */
-    public function getSegmentPolicyOfToggle( $toggleName, $segmentId );
+    public function getSegmentPolicyOfToggle( string $toggleName, string $segmentId ): ?bool;
 }

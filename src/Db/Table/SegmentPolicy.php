@@ -5,10 +5,7 @@ use Clearbooks\Labs\Db\Table\UseCase\StringifyableTable;
 
 class SegmentPolicy extends StringifyableTable
 {
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return "segment_policy";
     }

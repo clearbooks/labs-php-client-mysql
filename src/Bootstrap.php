@@ -6,26 +6,14 @@ use DI\ContainerBuilder;
 
 class Bootstrap
 {
-    /**
-     * @var Bootstrap
-     */
-    private static $instance = null;
-
-    /**
-     * @var Container
-     */
-    private $DIContainer;
-
-    /**
-     * @var bool
-     */
-    private $initialized = false;
+    private static ?Bootstrap $instance = null;
+    private Container $DIContainer;
+    private bool $initialized = false;
 
     /**
      * @codeCoverageIgnore
-     * @return Bootstrap
      */
-    public static function getInstance()
+    public static function getInstance(): Bootstrap
     {
         if ( self::$instance == null ) {
             self::$instance = new Bootstrap();
@@ -39,7 +27,7 @@ class Bootstrap
      *
      * @param string[] $definitionProviderClasses
      */
-    public function init( array $definitionProviderClasses )
+    public function init( array $definitionProviderClasses ): void
     {
         if ( $this->initialized ) {
             return;
@@ -58,7 +46,7 @@ class Bootstrap
      * @param ContainerBuilder $containerBuilder
      * @param array            $definitionProviderClasses
      */
-    private function loadDefinitions( ContainerBuilder $containerBuilder, array $definitionProviderClasses )
+    private function loadDefinitions( ContainerBuilder $containerBuilder, array $definitionProviderClasses ): void
     {
         foreach ( $definitionProviderClasses as $definitionProviderClass ) {
             /** @var DIDefinitionProvider $definitionProvider */
@@ -71,10 +59,7 @@ class Bootstrap
         }
     }
 
-    /**
-     * @return Container
-     */
-    public function getDIContainer()
+    public function getDIContainer(): Container
     {
         return $this->DIContainer;
     }

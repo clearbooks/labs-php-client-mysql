@@ -1,28 +1,22 @@
 <?php
 namespace Clearbooks\Labs\Db;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 
 class DoctrineConnectionProvider
 {
-    /**
-     * @var ConnectionDetails
-     */
-    private $connectionDetails;
+    private ConnectionDetails $connectionDetails;
 
-    /**
-     * @param ConnectionDetails $connectionDetails
-     */
     public function __construct( ConnectionDetails $connectionDetails )
     {
         $this->connectionDetails = $connectionDetails;
     }
 
     /**
-     * @return \Doctrine\DBAL\Connection
-     * @throws \Doctrine\DBAL\DBALException
+     * @throws \Doctrine\DBAL\Exception
      */
-    public function getConnection()
+    public function getConnection(): Connection
     {
         return DriverManager::getConnection( [
                                                      "host"     => $this->connectionDetails->getHost(),

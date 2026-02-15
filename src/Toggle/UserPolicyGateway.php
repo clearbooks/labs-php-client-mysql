@@ -7,14 +7,8 @@ use Clearbooks\Labs\Toggle\UseCase\UserPolicyRetriever;
 
 class UserPolicyGateway implements UserTogglePolicyGateway
 {
-    /**
-     * @var UserPolicyRetriever
-     */
-    private $userPolicyRetriever;
+    private UserPolicyRetriever $userPolicyRetriever;
 
-    /**
-     * @param UserPolicyRetriever $userPolicyRetriever
-     */
     public function __construct( UserPolicyRetriever $userPolicyRetriever )
     {
         $this->userPolicyRetriever = $userPolicyRetriever;
@@ -25,7 +19,7 @@ class UserPolicyGateway implements UserTogglePolicyGateway
      * @param Identity $idHolder
      * @return TogglePolicyResponse
      */
-    public function getTogglePolicy( $toggleName, Identity $idHolder )
+    public function getTogglePolicy( $toggleName, Identity $idHolder ): TogglePolicyResponse
     {
         $togglePolicyActive = $this->userPolicyRetriever->getUserPolicyOfToggle( $toggleName, $idHolder->getId() );
         return new TogglePolicyResponse( $togglePolicyActive );

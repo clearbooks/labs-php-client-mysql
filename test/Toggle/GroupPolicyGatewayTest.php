@@ -6,10 +6,7 @@ use Clearbooks\Labs\Toggle\Entity\GroupStub;
 
 class GroupPolicyGatewayTest extends TogglePolicyGatewayTest
 {
-    /**
-     * @var GroupPolicyGateway
-     */
-    private $groupPolicyGateway;
+    private GroupPolicyGateway $groupPolicyGateway;
 
     public function setUp(): void
     {
